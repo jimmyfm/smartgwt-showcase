@@ -1,0 +1,114 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.ListGridField;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.FloatItem;
+import com.smartgwt.client.widgets.UserFormula;
+import com.smartgwt.client.types.ListGridFieldType;
+import com.smartgwt.client.types.ListGridEditEvent;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.sample.showcase.client.data.OrderItemLocalDS;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class GridEditorFormulaSample implements EntryPoint {
+
+    public void onModuleLoad() {
+
+        DataSource itemLocalDS = OrderItemLocalDS.getInstance();
+        
+        DynamicForm form = new DynamicForm();
+        form.setID("form");
+        form.setWidth(500);
+        
+        FloatItem markupItem = new FloatItem("markup");
+        markupItem.setTitle("Markup percent");
+        markupItem.setWrapTitle(false);
+        markupItem.setFormat("0.0#%");
+        markupItem.setDefaultValue(0.10);
+        
+        form.setFields(markupItem);
+		
+        ListGrid itemList = new ListGrid();
+        itemList.setWidth(600);
+        itemList.setHeight(525);
+        itemList.setAlternateRecordStyles(true);
+        itemList.setAutoFetchData(true);
+        itemList.setDataSource(itemLocalDS);
+        itemList.setCanEdit(true);
+        itemList.setEditEvent(ListGridEditEvent.CLICK);
+        itemList.setShowAllRecords(true);
+		
+        ListGridField orderID = new ListGridField("orderID", "Order ID");
+        orderID.setIncludeInRecordSummary(false);
+        ListGridField itemDescription = new ListGridField("itemDescription");
+        ListGridField category = new ListGridField("category");
+        ListGridField shipDate = new ListGridField("shipDate");
+        ListGridField quantity = new ListGridField("quantity");
+        ListGridField unitCost = new ListGridField("unitCost", "Cost");
+        unitCost.setType(ListGridFieldType.FLOAT);
+        ListGridField unitPrice = new ListGridField("unitPrice", "Price");
+        unitPrice.setType(ListGridFieldType.FLOAT);
+        unitPrice.setFormat("$,0.00");
+        UserFormula formula = new UserFormula();
+        formula.setText("unitCost+unitCost*form.values.markup");
+        unitPrice.setEditorFormula(formula);
+
+        itemList.setFields(orderID,itemDescription,category,shipDate,quantity,unitCost,unitPrice);
+		
+        VLayout vLayout = new VLayout();
+        vLayout.setMembersMargin(15);
+        vLayout.addMember(form);
+        vLayout.addMember(itemList);
+		
+        vLayout.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

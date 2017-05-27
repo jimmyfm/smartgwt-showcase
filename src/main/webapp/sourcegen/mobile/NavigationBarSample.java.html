@@ -1,0 +1,120 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.FlowLayout;
+import com.smartgwt.client.widgets.layout.NavigationBar;
+import com.smartgwt.client.widgets.layout.VLayout;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class NavigationBarSample implements EntryPoint {
+
+    public void onModuleLoad() {
+        final NavigationBar navBar = new NavigationBar();
+        navBar.setWidth(296);
+        navBar.setLeftButtonTitle("Employees");
+        navBar.setRightButtonTitle("Action");
+        navBar.setShowRightButton(true);
+        navBar.setTitle("Fa Bai");
+		
+        final IButton button1 = new IButton();
+        button1.setTitle("Fa Bai");
+        button1.setWidth(150);
+        button1.setAutoFit(true);
+        button1.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent arg0) {
+                navBar.setTitle(button1.getTitle());
+            }
+        });
+        final IButton button2 = new IButton();
+        button2.setTitle("Abe Jacobs");
+        button2.setWidth(150);
+        button2.setAutoFit(true);
+        button2.addClickHandler(new ClickHandler() {
+            @Override
+             public void onClick(ClickEvent arg0) {
+                 navBar.setTitle(button2.getTitle());
+             }
+        });
+        final IButton button3 = new IButton();
+        button3.setTitle("Izabella Chernyak F.");
+        button3.setWidth(150);
+        button3.setAutoFit(true);
+        button3.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent arg0) {
+                navBar.setTitle(button3.getTitle());
+            }
+        });
+        final IButton button4 = new IButton();
+        button4.setTitle("Christine Bergeron Fewell");
+        button4.setAutoFit(true);
+        button4.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent arg0) {
+                navBar.setTitle(button4.getTitle());
+            }
+        });
+        FlowLayout flowLayout = new FlowLayout();
+        flowLayout.setOverflow(Overflow.VISIBLE);
+        flowLayout.setWidth100();
+        flowLayout.setTileMargin(5);
+        flowLayout.setTiles(button1, button2, button3, button4);
+		
+        VLayout vLayout = new VLayout();
+        vLayout.setWidth100();
+        vLayout.setMembers(navBar, flowLayout);
+
+        vLayout.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

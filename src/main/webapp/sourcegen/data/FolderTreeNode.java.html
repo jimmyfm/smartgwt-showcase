@@ -1,0 +1,76 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Isomorphic SmartGWT web presentation layer
+ * Copyright 2000 and beyond Isomorphic Software, Inc.
+ *
+ * OWNERSHIP NOTICE
+ * Isomorphic Software owns and reserves all rights not expressly granted in this source code,
+ * including all intellectual property rights to the structure, sequence, and format of this code
+ * and to all designs, interfaces, algorithms, schema, protocols, and inventions expressed herein.
+ *
+ *  If you have any questions, please email <sourcecode@isomorphic.com>.
+ *
+ *  This entire comment must accompany any portion of Isomorphic Software source code that is
+ *  copied or moved from this file.
+ */
+
+package com.smartgwt.sample.showcase.client.data;
+
+public class FolderTreeNode extends ExplorerTreeNode {
+
+    private String description;
+
+    public FolderTreeNode(String name, String nodeID, String parentNodeID, String icon, 
+                          boolean enabled, String idSuffix) 
+    {
+        super(name, nodeID, parentNodeID, icon, null, enabled, idSuffix);
+    }
+    
+    public FolderTreeNode(String name, String nodeID, String parentNodeID, String icon, 
+                          boolean enabled, String idSuffix, String version) {
+        super(name, nodeID, parentNodeID, icon, null, enabled, true, idSuffix, version);
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public FolderTreeNode(ExplorerTreeNode originalNode, String idSuffix) {
+        super(originalNode, idSuffix);
+        setDescription(((FolderTreeNode)originalNode).getDescription());
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

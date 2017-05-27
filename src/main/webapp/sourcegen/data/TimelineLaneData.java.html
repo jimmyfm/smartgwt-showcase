@@ -1,0 +1,70 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+package com.smartgwt.sample.showcase.client.data;
+
+import com.smartgwt.client.widgets.calendar.Lane;
+
+import java.util.Date;
+
+public class TimelineLaneData {
+
+    private static Lane[] records;
+
+    public static Lane[] getRecords() {
+        if (records == null) {
+            records = getNewRecords();
+        }
+        return records;
+    }
+
+    public TimelineLaneData() {
+    }
+
+    public static Lane[] getNewRecords() {
+        Lane[] lanes = new Lane[]{
+            getLane("charlesMadigen", "Charles Madigen", "Managers"),
+            getLane("tamaraKane", "Tamara Kane", "Developers"),
+            getLane("darcyFeeney", "Darcy Feeney", "Managers"),
+            getLane("kaiKong", "Kai Kong", "Developers"),
+            getLane("shelleyFewel", "Shelley Fewel", "Managers"),
+            getLane("garretMonroe", "Garret Monroe", "Developers")
+        };
+        return lanes;
+    }
+    
+	private static Lane getLane(String name, String title, String devGroup) {
+		Lane lane = new Lane(name, title);
+		lane.setAttribute("devGroup", devGroup);
+		return lane;
+	}
+
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

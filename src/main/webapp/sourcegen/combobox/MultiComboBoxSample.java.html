@@ -1,0 +1,133 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
+import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.CheckboxItem;
+import com.smartgwt.client.widgets.form.fields.MultiComboBoxItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.layout.VStack;
+import com.smartgwt.sample.showcase.client.data.ItemSupplyXmlDS;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class MultiComboBoxSample implements EntryPoint {
+
+    private static final Map<String, MultiComboBoxLayoutStyle> LAYOUT_STYLES;
+    static {
+        final MultiComboBoxLayoutStyle[] values = MultiComboBoxLayoutStyle.values();
+        LAYOUT_STYLES = new HashMap<String, MultiComboBoxLayoutStyle>(values.length);
+
+        for (MultiComboBoxLayoutStyle value : values) {
+            LAYOUT_STYLES.put(value.getValue(), value);
+        }
+    }
+
+    @Override
+    public void onModuleLoad() {
+
+        final MultiComboBoxLayoutStyle initialLayoutStyle = MultiComboBoxLayoutStyle.FLOW;
+        final boolean initialAddUnknownValues = false;
+
+        final MultiComboBoxItem suppliesItem = new MultiComboBoxItem("supplies", "Items");
+        suppliesItem.setOptionDataSource(ItemSupplyXmlDS.getInstance());
+        suppliesItem.setDisplayField("itemName");
+        suppliesItem.setValueField("SKU");
+        suppliesItem.setValue(new String[] { "58074604", "90600", "1089400", "6024900" });
+        suppliesItem.setAutoFetchData(true);
+        suppliesItem.setLayoutStyle(initialLayoutStyle);
+
+        final SelectItem layoutStyleSelector = new SelectItem();
+        layoutStyleSelector.setTitle("Change layout style");
+        layoutStyleSelector.setColSpan(2);
+        layoutStyleSelector.setDefaultValue(initialLayoutStyle.getValue());
+        layoutStyleSelector.setValueMap(LAYOUT_STYLES.keySet().toArray(new String[LAYOUT_STYLES.size()]));
+        layoutStyleSelector.addChangedHandler(new ChangedHandler() {
+            @Override
+            public void onChanged(ChangedEvent event) {
+                final String value = (String)event.getValue();
+                suppliesItem.setLayoutStyle(LAYOUT_STYLES.get(value));
+            }
+        });
+
+        final CheckboxItem auvCheckbox = new CheckboxItem();
+        auvCheckbox.setTitle("Allow New Values");
+        auvCheckbox.setValue(initialAddUnknownValues);
+        auvCheckbox.addChangedHandler(new ChangedHandler() {
+            @Override
+            public void onChanged(ChangedEvent event) {
+                suppliesItem.setAddUnknownValues((Boolean)event.getValue());
+            }
+        });
+
+        final DynamicForm configureForm = new DynamicForm();
+        configureForm.setIsGroup(true);
+        configureForm.setGroupTitle("Configure Multi ComboBox");
+        configureForm.setWidth100();
+        configureForm.setPadding(3);
+        configureForm.setTitleOrientation(TitleOrientation.TOP);
+        configureForm.setItems(layoutStyleSelector, auvCheckbox);
+
+        final DynamicForm suppliesForm = new DynamicForm();
+        suppliesForm.setWidth100();
+        suppliesForm.setNumCols(1);
+        suppliesForm.setTitleOrientation(TitleOrientation.TOP);
+        suppliesForm.setItems(suppliesItem);
+
+        final VStack layout = new VStack(10);
+        layout.setWidth("100%");
+        layout.setMembers(configureForm, suppliesForm);
+        layout.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

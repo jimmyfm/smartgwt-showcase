@@ -1,0 +1,158 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.DragAppearance;
+import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.CheckboxItem;
+import com.smartgwt.client.widgets.form.fields.RadioGroupItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.layout.VLayout;
+
+import java.util.LinkedHashMap;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class DragSnapToGridSample implements EntryPoint {
+
+    public void onModuleLoad() {
+        final Canvas gridCanvas = new Canvas();
+		gridCanvas.setBorder("1px solid blue");
+		gridCanvas.setWidth(400);
+		gridCanvas.setHeight(300);
+		gridCanvas.setChildrenSnapResizeToGrid(true);
+		gridCanvas.setChildrenSnapToGrid(true);
+		gridCanvas.setOverflow(Overflow.HIDDEN);
+		gridCanvas.setShowSnapGrid(true);
+		
+		Label label = new Label();
+		label.setWidth(80);
+		label.setHeight(40);
+		label.setAlign(Alignment.CENTER);
+		label.setContents("Drag or Resize me");
+		label.setBackgroundColor("white");
+		label.setShowEdges(true);
+		label.setCanDragReposition(true);
+		label.setCanDragResize(true);
+		label.setDragAppearance(DragAppearance.TARGET);
+		label.setKeepInParentRect(true);
+		
+		gridCanvas.addChild(label);
+		
+		DynamicForm gridForm = new DynamicForm();
+		gridForm.setWidth(400);
+		gridForm.setNumCols(4);
+		
+		CheckboxItem snapDrag = new CheckboxItem();
+		snapDrag.setValue(true);
+		snapDrag.setTitle("Enable Snap-To-Grid Move");
+		snapDrag.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				gridCanvas.setProperty("childrenSnapToGrid", !gridCanvas.getChildrenSnapToGrid());
+			}
+			
+		});
+		CheckboxItem snapResize = new CheckboxItem();
+		snapResize.setValue(true);
+		snapResize.setTitle("Enable Snap To Grid Resize");
+		snapResize.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				gridCanvas.setProperty("childrenSnapResizeToGrid", !gridCanvas.getChildrenSnapResizeToGrid());
+			}
+			
+		});
+
+		RadioGroupItem radioGroupHGap = new RadioGroupItem();
+		radioGroupHGap.setTitle("Horizontal snap-to gap");
+		LinkedHashMap<Integer,String> hGapMap = new LinkedHashMap<Integer,String>();
+		hGapMap.put(10, "10 pixels");
+		hGapMap.put(20, "20 pixels");
+		hGapMap.put(50, "50 pixels");
+		radioGroupHGap.setValueMap(hGapMap);
+		radioGroupHGap.setDefaultValue(20);
+		radioGroupHGap.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				gridCanvas.setProperty("snapHGap", Integer.parseInt(String.valueOf(event.getValue())));
+			}
+			
+		});
+		RadioGroupItem radioGroupVGap = new RadioGroupItem();
+		radioGroupVGap.setTitle("Vertical snap-to gap");
+		LinkedHashMap<Integer,String> vGapMap = new LinkedHashMap<Integer,String>();
+		vGapMap.put(10, "10 pixels");
+		vGapMap.put(20, "20 pixels");
+		vGapMap.put(50, "50 pixels");
+		radioGroupVGap.setValueMap(vGapMap);
+		radioGroupVGap.setDefaultValue(20);
+		radioGroupVGap.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				gridCanvas.setProperty("snapVGap", Integer.parseInt(String.valueOf(event.getValue())));
+			}
+			
+		});
+		gridForm.setFields(snapDrag,snapResize,radioGroupHGap,radioGroupVGap);
+		
+		VLayout vl = new VLayout();
+		vl.setMembersMargin(10);
+		vl.addMember(gridCanvas);
+		vl.addMember(gridForm);
+
+        vl.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

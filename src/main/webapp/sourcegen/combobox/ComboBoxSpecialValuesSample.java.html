@@ -1,0 +1,128 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import java.util.LinkedHashMap;
+
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.ListGridField;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.data.Criteria;
+
+import com.smartgwt.sample.showcase.client.data.ItemSupplyXmlDS;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class ComboBoxSpecialValuesSample implements EntryPoint {
+
+    public void onModuleLoad() {
+        
+        DynamicForm form = new DynamicForm();
+        form.setWidth(500);
+		
+        SelectItem selectItem = new SelectItem();
+        selectItem.setOptionDataSource(ItemSupplyXmlDS.getInstance());
+        selectItem.setDisplayField("itemName");
+        selectItem.setValueField("itemID");
+        selectItem.setPickListWidth(300);
+        selectItem.setName("filteredSelect");
+        selectItem.setTitle("Choose an item (Select)");
+		
+        ListGrid pickListProperties = new ListGrid();
+        pickListProperties.setShowFilterEditor(true);
+        selectItem.setPickListProperties(pickListProperties);
+        ListGridField skuField = new ListGridField("SKU");
+        ListGridField itemNameField = new ListGridField("itemName");
+        selectItem.setPickListFields(skuField, itemNameField);
+        LinkedHashMap<String,String> hashMap = new LinkedHashMap<String,String>();
+        hashMap.put("**EmptyValue**", "None");
+        hashMap.put("-1", "Not Applicable");
+        selectItem.setSpecialValues(hashMap);
+        selectItem.setSeparateSpecialValues(true);
+
+        ComboBoxItem comboBoxItem = new ComboBoxItem();
+        comboBoxItem.setName("filteredCombo");
+        comboBoxItem.setTitle("Choose an item (ComboBox)");
+        comboBoxItem.setAddUnknownValues(false);
+        comboBoxItem.setOptionDataSource(ItemSupplyXmlDS.getInstance());
+        comboBoxItem.setDisplayField("itemName");
+        comboBoxItem.setValueField("itemID");
+        comboBoxItem.setPickListWidth(300);
+        comboBoxItem.setPickListFields(skuField, itemNameField);
+        comboBoxItem.setSpecialValues(hashMap);
+        comboBoxItem.setSeparateSpecialValues(true);
+		
+        SelectItem multipleSelect = new SelectItem("multipleSelect");
+        multipleSelect.setTitle("Select items");
+        multipleSelect.setOptionDataSource(ItemSupplyXmlDS.getInstance());
+
+        Criteria criteria = new Criteria();
+        criteria.addCriteria("units", "Set");
+        multipleSelect.setOptionCriteria(criteria);
+        multipleSelect.setDisplayField("SKU");
+        multipleSelect.setValueField("itemID");
+        multipleSelect.setPickListWidth(400);
+		
+        ListGridField skuLGF = new ListGridField("SKU", "SKU");
+        ListGridField itemNameLGF = new ListGridField("itemName", "Item Name");
+        multipleSelect.setPickListFields(skuLGF, itemNameLGF);
+        multipleSelect.setMultiple(true);
+        multipleSelect.setSeparateSpecialValues(true);
+        
+        LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();  
+        valueMap.put("**emptyValue**", "Select None");  
+        valueMap.put("**selectAllValues**", "Select All"); 
+        multipleSelect.setSpecialValues(valueMap);
+        
+        form.setFields(selectItem, comboBoxItem, multipleSelect);
+		
+		form.draw();
+    }
+
+}
+
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

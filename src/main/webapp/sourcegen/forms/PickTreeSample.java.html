@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.types.TreeModelType;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.PickTreeItem;
+import com.smartgwt.client.widgets.tree.Tree;
+import com.smartgwt.client.widgets.tree.TreeNode;
+import com.smartgwt.sample.showcase.client.data.SupplyCategoryXmlDS;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class PickTreeSample implements EntryPoint {
+
+    protected boolean isTopIntro() {
+        return true;
+    }
+
+    public void onModuleLoad() {
+        
+        TreeNode children[] = new TreeNode[4];
+        children[0] = new TreeNode();
+        children[0].setTitle("Marketing");
+        children[0].setChildren(new TreeNode[] {
+            new TreeNode("Advertising"),
+            new TreeNode("Community Relations")
+        });
+        children[1] = new TreeNode();
+        children[1].setTitle("Sales");
+        children[1].setChildren(new TreeNode[] {
+            new TreeNode("Channel Sales"),
+            new TreeNode("Direct Sales")
+		});
+        children[2] = new TreeNode();
+        children[2].setTitle("Manufacturing");
+        children[2].setChildren(new TreeNode[] {
+            new TreeNode("Design"),
+            new TreeNode("Development"),
+            new TreeNode("QA")
+		});
+        children[3] = new TreeNode();
+        children[3].setTitle("Services");
+        children[3].setChildren(new TreeNode[] {
+            new TreeNode("Support"),
+            new TreeNode("Consulting")
+		});
+        TreeNode rootNode = new TreeNode();
+        rootNode.setName("root");
+        rootNode.setChildren(children);
+		
+        Tree tree = new Tree();
+        tree.setModelType(TreeModelType.CHILDREN);
+        tree.setRoot(rootNode);
+		
+        final DynamicForm form = new DynamicForm();
+		
+        PickTreeItem pickDepartment = new PickTreeItem();
+        pickDepartment.setTitle("Department");
+        pickDepartment.setName("department");
+        pickDepartment.setValueField("name");
+        pickDepartment.setValueTree(tree);
+		
+        DataSource ds = SupplyCategoryXmlDS.getInstance();
+        PickTreeItem pickCategory = new PickTreeItem();
+        pickCategory.setTitle("Category");
+        pickCategory.setName("category");
+        pickCategory.setDataSource(ds);
+        pickCategory.setEmptyMenuMessage("No Sub Categories");
+        pickCategory.setCanSelectParentItems(true);
+		
+		form.setFields(pickDepartment, pickCategory);
+
+        form.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

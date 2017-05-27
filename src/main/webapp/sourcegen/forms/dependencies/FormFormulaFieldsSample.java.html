@@ -1,0 +1,162 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.IntegerItem;
+import com.smartgwt.client.widgets.form.fields.FloatItem;
+import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
+import com.smartgwt.client.widgets.form.fields.HeaderItem;
+import com.smartgwt.client.widgets.form.fields.TextAreaItem;
+import com.smartgwt.client.widgets.form.fields.DateItem;
+import com.smartgwt.client.widgets.form.fields.SubmitItem;
+import com.smartgwt.client.widgets.UserFormula;
+import com.smartgwt.client.widgets.UserSummary;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.types.CharacterCasing;
+import com.smartgwt.client.types.ReadOnlyDisplayAppearance;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.sample.showcase.client.data.StockItemDS;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class FormFormulaFieldsSample implements EntryPoint {
+
+    public void onModuleLoad() {
+
+        DataSource stockItemDS = StockItemDS.getInstance();
+        
+        final DynamicForm formOrder = new DynamicForm();
+        formOrder.setID("order");
+        
+        HeaderItem header = new HeaderItem();
+        header.setDefaultValue("Select an item for your Order");
+        ComboBoxItem itemId  = new ComboBoxItem("itemID");
+        itemId.setTitle("Item");
+        itemId.setWidth(300);
+        itemId.setOptionDataSource(stockItemDS);
+        itemId.setValueField("itemID");
+        itemId.setDisplayField("description");
+        itemId.addChangedHandler(new ChangedHandler() {
+            @Override
+            public void onChanged(ChangedEvent event) {
+                ListGridRecord record = event.getItem().getSelectedRecord();
+                if (record != null) formOrder.setValue("price", record.getAttributeAsFloat("price"));
+            }
+        });
+        IntegerItem quantity = new IntegerItem();
+        quantity.setName("quantity");
+        quantity.setTitle("Quantity");
+        quantity.setDefaultValue(1);
+        quantity.setValidateOnExit(true);
+        FloatItem price = new FloatItem();
+        price.setTitle("Price");
+        price.setName("price");
+        price.setCanEdit(false);
+        price.setReadOnlyDisplay(ReadOnlyDisplayAppearance.STATIC);
+        price.setFormat("$,##0.00");
+        FloatItem extended = new FloatItem();
+        extended.setTitle("Extended");
+        extended.setName("extended");
+        extended.setCanEdit(false);
+        extended.setReadOnlyDisplay(ReadOnlyDisplayAppearance.STATIC);
+        extended.setFormat("$,##0.00");
+        UserFormula formula = new UserFormula();
+        formula.setText("price*quantity");
+        extended.setFormula(formula);
+        
+        HeaderItem header1 = new HeaderItem();
+        header1.setDefaultValue("Enter ship to details");
+        TextItem firstName = new TextItem("firstName");
+        firstName.setTitle("First Name");
+        TextItem lastName = new TextItem("lastName");
+        lastName.setTitle("Last Name");
+        TextItem address = new TextItem("address");
+        address.setTitle("Address");
+        TextItem city = new TextItem("city");
+        city.setTitle("City");
+        TextItem state = new TextItem("state");
+        state.setTitle("State");
+        state.setCharacterCasing(CharacterCasing.UPPER);
+        state.setLength(2);
+        state.setWidth(40);
+        IntegerItem zip = new IntegerItem("zip");
+        zip.setTitle("Zip Code");
+        zip.setLength(5);
+        TextAreaItem label = new TextAreaItem();
+        label.setTitle("Shipping label");
+        label.setWidth(300);
+        label.setCanEdit(false);
+        UserSummary formulaSummary = new UserSummary();
+        formulaSummary.setText("#{firstName} #{lastName}\\n#{address}\\n#{city} #{state} #{zip}");
+        label.setTextFormula(formulaSummary);
+        
+        HeaderItem header2 = new HeaderItem();
+        header2.setDefaultValue("Select shipping time");
+        IntegerItem shipDays = new IntegerItem("shipDays");
+        shipDays.setTitle("Ship Days");
+        shipDays.setDefaultValue(2);
+        DateItem estDelivery = new DateItem("estDelivery");
+        estDelivery.setTitle("Est. Delivery");
+        estDelivery.setCanEdit(false);
+        estDelivery.setUseTextField(true);
+        UserFormula formula1 = new UserFormula();
+        formula1.setText("DateAdd(new Date(),'d',shipDays)");
+        estDelivery.setFormula(formula1);
+        SubmitItem submit = new SubmitItem();
+        submit.setTitle("Submit Order");
+        
+        formOrder.setFields(header, itemId, quantity, price, extended, header1, firstName, 
+                            lastName, address, city, state, zip, label, header2, shipDays, estDelivery,
+                            submit);
+        
+        formOrder.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

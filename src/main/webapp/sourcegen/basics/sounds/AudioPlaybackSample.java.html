@@ -1,0 +1,140 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.layout.VStack;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.Progressbar;
+import com.smartgwt.client.widgets.Sound;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.data.events.TimeChangedEvent;
+import com.smartgwt.client.widgets.data.events.TimeChangedHandler;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class AudioPlaybackSample implements EntryPoint {
+
+    private String formatTime (double durationInSeconds) {
+        if (durationInSeconds == 0) return "--:--";
+        double minutes = Math.floor(durationInSeconds / 60);
+        String minutesString = (minutes >= 10) ? String.valueOf(minutes) : "0" + minutes;
+        double seconds = Math.floor(durationInSeconds % 60);
+        String secondsString = (seconds >= 10) ? String.valueOf(seconds) : "0" + seconds;
+        return minutesString + ":" + secondsString;
+    };
+
+    public void onModuleLoad() {
+        final Progressbar progressbar = new Progressbar();
+        progressbar.setBreadth(16);
+        progressbar.setShowTitle(true);
+		
+        boolean audioIsSupported = Sound.isSupported();
+		
+        if (!audioIsSupported) SC.warn("Your browser does not support HTML5 Audio");
+		
+        final Sound sound = new Sound();
+        sound.setSrc("audios/crescendo.wav");
+        sound.setAutoLoad(true);
+        sound.addTimeChangedHandler(new TimeChangedHandler() {
+            @Override
+            public void onTimeChanged(TimeChangedEvent event) {
+                double currentTime = event.getCurrentTimeAsDouble();
+                progressbar.setPercentDone(Integer.parseInt((Math.floor((currentTime * 100) / sound.getDuration()))+""));
+                progressbar.setTitle(formatTime(currentTime) + " / " + formatTime(sound.getDuration()));
+            }
+        });
+		
+        HLayout hLayout = new HLayout();
+        hLayout.setMembersMargin(10);
+        hLayout.setWidth(320);
+        hLayout.setHeight(1);
+        hLayout.setDisabled(!audioIsSupported);
+		
+        IButton playButton = new IButton();
+        playButton.setTitle("Play");
+        playButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                sound.play();
+            }
+        });
+        IButton pauseButton = new IButton();
+        pauseButton.setTitle("Pause");
+        pauseButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                sound.pause();
+            }
+        });
+        IButton resetButton = new IButton();
+        resetButton.setTitle("Reset");
+        resetButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                sound.pause();
+                sound.reset();
+            }
+        });
+        hLayout.addMembers(playButton, pauseButton, resetButton);
+		
+        VStack vStack = new VStack();
+        vStack.setIsGroup(true);
+        vStack.setGroupTitle("Audio Playback");
+        vStack.setWidth(430);
+        vStack.setHeight(80);
+        vStack.setMembersMargin(10);
+        vStack.setLayoutMargin(20);
+        vStack.setDefaultLayoutAlign(Alignment.CENTER);
+        vStack.addMembers(progressbar, hLayout);
+
+        vStack.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

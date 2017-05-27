@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import java.util.LinkedHashMap;
+
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.FormItemIcon;
+import com.smartgwt.client.widgets.form.fields.RadioGroupItem;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.layout.Layout;
+import com.smartgwt.client.widgets.layout.VStack;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class TextIconsSample implements EntryPoint {
+
+    public String getCssUrl() {
+        return "source/forms/details/textIcons.css.html";
+    }
+
+    private DynamicForm form;
+    private RadioGroupItem havePhoneNumberItem;
+    private TextItem phoneNumberItem;
+    private String previousPhoneNumber;
+
+    @Override
+    public void onModuleLoad() {
+        havePhoneNumberItem = new RadioGroupItem("havePhoneNumber", "Have Phone Number?");
+        havePhoneNumberItem.setVertical(false);
+        final LinkedHashMap<String, Object> valueMap = new LinkedHashMap<String, Object>();
+        valueMap.put("true", "Yes");
+        valueMap.put("false", "No");
+        havePhoneNumberItem.setValueMap(valueMap);
+        havePhoneNumberItem.setDefaultValue("true");
+        havePhoneNumberItem.addChangedHandler(new ChangedHandler() {
+            @Override
+            public void onChanged(ChangedEvent event) {
+                final boolean enabled = "true".equals(event.getValue());
+                phoneNumberItem.setDisabled(!enabled);
+                if (enabled) {
+                    phoneNumberItem.setValue(previousPhoneNumber);
+                } else {
+                    // Save the current phone number, to be restored if the user selects "Yes" again.
+                    previousPhoneNumber = phoneNumberItem.getValueAsString();
+                    phoneNumberItem.clearValue();
+                }
+            }
+        });
+
+        phoneNumberItem = new TextItem("phoneNumber", "Phone Number");
+        phoneNumberItem.setWidth(200);
+        final FormItemIcon telIcon = new FormItemIcon();
+        telIcon.setName("tel");
+        telIcon.setSrc("blank"); // if inline icons are not supported by the browser, revert to a blank icon
+        telIcon.setInline(true);
+        telIcon.setText("&#x2706;");
+        telIcon.setBaseStyle("telIcon");
+        phoneNumberItem.setIcons(telIcon);
+        phoneNumberItem.setIconWidth(16);
+        phoneNumberItem.setIconHeight(16);
+        phoneNumberItem.setKeyPressFilter("[-+(),./#0-9 Xx]");
+
+        form = new DynamicForm();
+        form.setItems(havePhoneNumberItem, phoneNumberItem);
+
+        final Layout layout = new VStack();
+        layout.setWidth100();
+        layout.setMembers(form);
+        layout.draw();
+    }
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

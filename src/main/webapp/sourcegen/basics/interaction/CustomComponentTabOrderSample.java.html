@@ -1,0 +1,160 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.DragAppearance;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.events.FocusChangedEvent;
+import com.smartgwt.client.widgets.events.FocusChangedHandler;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.ButtonItem;
+import com.smartgwt.client.widgets.form.fields.CanvasItem;
+import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
+import com.smartgwt.client.widgets.form.fields.DateItem;
+import com.smartgwt.client.widgets.form.fields.FormItemIcon;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.HStack;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.sample.showcase.client.SourceEntity;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class CustomComponentTabOrderSample implements EntryPoint {
+
+    
+    public void onModuleLoad() {
+    	
+
+    	// Demo of custom component in standard page UI
+    	final HLayout outerLayout = new HLayout();
+    	outerLayout.setMembersMargin(10);
+    	outerLayout.setHeight(250);
+
+    	VLayout customTabLayout = new VLayout();
+    	customTabLayout.setWidth(250);
+    	customTabLayout.setIsGroup(true);
+    	customTabLayout.setGroupTitle("Custom Tab Elements");
+    	customTabLayout.setDefaultLayoutAlign(Alignment.CENTER);
+    	customTabLayout.setLayoutMargin(10);
+    	customTabLayout.setMembersMargin(5);
+    	
+    	IButton prevButton = new IButton("Previous SGWT Button");
+    	prevButton.setWidth(200);
+    	
+    	// Example of the new NativeButtonToolbar class (has focusable native HTML elements)
+    	NativeButtonToolbar toolbar1 = new NativeButtonToolbar("Native Button 1", "Native Button 2");
+    	
+    	IButton nextButton = new IButton("Subsequent SGWT Button");
+    	nextButton.setWidth(200);
+    	
+    	customTabLayout.setMembers(prevButton, toolbar1, nextButton);
+    	
+
+        // Demo of this custom component embedded in a DynamicForm
+    	DynamicForm customTabForm = new DynamicForm();
+    	customTabForm.setWidth(250);
+    	customTabForm.setIsGroup(true);
+    	customTabForm.setGroupTitle("Custom Tab Form");
+    	customTabForm.setPadding(5);
+    	
+    	// Create a canvasItem containing a NativeButtonToolbar
+    	// (has focusable native HTML elements)
+    	CanvasItem toolbarItem = new CanvasItem("custom","Native Toolbar");
+    	toolbarItem.setCanvas(new NativeButtonToolbar("Native Button 1", "Native Button 2"));
+    	
+    	customTabForm.setItems(
+    		new TextItem("item1"),
+    		new TextItem("item2") {
+    			// add some arbitrary icons to make the tab order more complex
+    			{setIcons(new FormItemIcon(), new FormItemIcon());}
+    		},
+    		new ButtonItem("item3"),
+    		
+    		// This is the custom NativeButtonToolbar-based canvasItem
+    		toolbarItem,
+    		
+    		new ButtonItem("item4"),
+    		new TextItem("item5")
+    	);
+    	
+    	outerLayout.setMembers(customTabLayout, customTabForm);
+
+    	IButton switchMembersButton = new IButton("Switch Members");
+    	switchMembersButton.setWidth(150);
+    	switchMembersButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				outerLayout.reorderMember(1, 0);
+				
+			}
+		});
+
+        VLayout vLayout = new VLayout();
+        vLayout.setMembersMargin(10);
+        vLayout.addMember(outerLayout);
+        vLayout.addMember(switchMembersButton);
+
+        vLayout.draw();
+    }
+
+    
+    @Override
+    public SourceEntity[] getSourceUrls() {
+        return new SourceEntity[] {
+                new SourceEntity("CustomComponentTabOrderSample.java", "source/basics/interaction/CustomComponentTabOrderSample.java.html"),
+                new SourceEntity("NativeButtonToolbar.java", "source/basics/interaction/NativeButtonToolbar.java.html"),
+                new SourceEntity("NativeButtonConfig.java", "source/basics/interaction/NativeButtonConfig.java.html")
+        };
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

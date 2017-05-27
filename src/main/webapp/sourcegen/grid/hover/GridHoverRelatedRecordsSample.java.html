@@ -1,0 +1,94 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.types.HoverMode;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.ListGridField;
+import com.smartgwt.sample.showcase.client.data.PresetDateRangeXmlDS;
+import com.smartgwt.sample.showcase.client.data.OrderMessagesXmlDS;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class GridHoverRelatedRecordsSample implements EntryPoint {
+
+    public void onModuleLoad() {
+        ListGrid orderList = new ListGrid();
+        orderList.setWidth(700);
+        orderList.setHeight(240);
+        orderList.setAlternateRecordStyles(true);
+        orderList.setDataSource(PresetDateRangeXmlDS.getInstance());
+        orderList.setAutoFetchData(true);
+        orderList.setCanHover(true);
+        orderList.setShowHover(true);
+        orderList.setShowHoverComponents(true);
+        // Define datasource for loading into the hover window
+        orderList.setHoverMode(HoverMode.RELATED);
+        // Set the hover size and activity
+        orderList.setHoverWidth(590);
+        orderList.setDetailDS(OrderMessagesXmlDS.getInstance());
+        ListGridField customerIDField = new ListGridField("customerID");
+        customerIDField.setHidden(true);
+        orderList.setFields(customerIDField);
+        orderList.setUseAllDataSourceFields(true);
+            
+        ListGrid listGrid = new ListGrid();
+        listGrid.setWrapCells(true);
+        listGrid.setFixedRecordHeights(false);
+        ListGridField loggedByField = new ListGridField("loggedBy");
+        loggedByField.setWidth(100);
+        ListGridField loggedDateField = new ListGridField("loggedDate");
+        loggedDateField.setWidth(120);
+        ListGridField orderMessageField = new ListGridField("orderMessage");
+        orderMessageField.setWidth("*");
+        listGrid.setFields(loggedByField, loggedDateField, orderMessageField);
+        
+        orderList.setAutoChildProperties("expansionRelated", listGrid);
+        
+        orderList.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.util.Page;
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.Splitbar;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.layout.LayoutSpacer;
+import com.smartgwt.client.types.Overflow;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class ButtonAdaptiveWidthSample implements EntryPoint {
+
+    public void onModuleLoad() {
+
+        final DynamicForm form = new DynamicForm();
+		form.setWidth("*");
+		form.setMinWidth(200);
+		form.setHeight100();
+		form.setOverflow(Overflow.HIDDEN);
+		form.setNumCols(1);
+		form.setCellPadding(0);
+		
+		final TextItem item = new TextItem();
+		item.setName("q");
+		item.setShowTitle(false);
+		item.setWidth("100%");
+		item.setHeight("100%");
+		item.setTextBoxStyle("relatedSearchItem");
+		item.setHint("Related search terms");
+		item.setShowHintInField(true);
+		
+		form.setItems(item);
+
+		final boolean isRTL = Page.isRTL();
+		Button adaptiveButton = new Button();
+		adaptiveButton.setWidth(140);
+		adaptiveButton.setCanAdaptWidth(true);
+		adaptiveButton.setHeight100();
+		adaptiveButton.setTitle("Find Related");
+		adaptiveButton.setIcon("icons/16/find.png");
+		adaptiveButton.setBaseStyle("findRelatedButton");
+		adaptiveButton.setShowFocusedAsOver(false);
+		adaptiveButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				String q = form.getValueAsString("q");
+				if (q != null) { 
+					SC.say("This is when the logic to search for <q>" + q + "</q> would run&hellip;");
+				}
+			}
+		});
+		
+		final HLayout hLayout = new HLayout();
+		hLayout.setWidth100();
+		hLayout.setMinWidth(250);
+		hLayout.setHeight100();
+		hLayout.setOverflow(Overflow.HIDDEN);
+		hLayout.setLayoutRightMargin(isRTL ? 0 : 6);
+		hLayout.setLayoutLeftMargin(isRTL ? 6 : 0);
+		hLayout.setMembers(adaptiveButton, form);
+		hLayout.setShowResizeBar(true);
+		
+		final LayoutSpacer spacer = new LayoutSpacer();
+		spacer.setWidth("*");
+		
+		final HLayout mainHLayout = new HLayout();
+		mainHLayout.setWidth100();
+		mainHLayout.setHeight(40);
+		mainHLayout.setOverflow(Overflow.HIDDEN);
+        final Splitbar resizeBarProperties = new Splitbar();
+        resizeBarProperties.setCanCollapse(false);
+        mainHLayout.setAutoChildProperties("resizeBar", resizeBarProperties);
+		mainHLayout.setMembers(hLayout, spacer);
+		
+        mainHLayout.draw();
+    }
+
+    @Override
+    protected boolean shouldWrapViewPanel() {
+        return true;
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

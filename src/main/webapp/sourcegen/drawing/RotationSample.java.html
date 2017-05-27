@@ -1,0 +1,218 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.types.LineCap;
+import com.smartgwt.client.types.TitleRotationMode;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Slider;
+import com.smartgwt.client.widgets.drawing.DrawCurve;
+import com.smartgwt.client.widgets.drawing.DrawItem;
+import com.smartgwt.client.widgets.drawing.DrawLine;
+import com.smartgwt.client.widgets.drawing.DrawLinePath;
+import com.smartgwt.client.widgets.drawing.DrawOval;
+import com.smartgwt.client.widgets.drawing.DrawPane;
+import com.smartgwt.client.widgets.drawing.DrawPolygon;
+import com.smartgwt.client.widgets.drawing.DrawRect;
+import com.smartgwt.client.widgets.drawing.DrawTriangle;
+import com.smartgwt.client.widgets.drawing.Point;
+import com.smartgwt.client.widgets.events.ValueChangedEvent;
+import com.smartgwt.client.widgets.events.ValueChangedHandler;
+import com.smartgwt.client.widgets.layout.Layout;
+import com.smartgwt.client.widgets.layout.VStack;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class RotationSample implements EntryPoint {
+
+    private DrawPane mainPane;
+
+    private DrawTriangle drawTriangle;
+    private DrawCurve drawCurve;
+    private DrawLinePath drawLinePath;
+    private DrawPolygon drawPolygon;
+    private DrawOval drawOval;
+    private DrawRect drawRect;
+    private DrawLine drawLine;
+
+    private void applyCommonProps(DrawItem item) {
+        item.setDrawPane(mainPane);
+        item.setCanDrag(true);
+        item.setTitleRotationMode(TitleRotationMode.WITH_ITEM);
+    }
+
+    public void onModuleLoad() {
+        mainPane = new DrawPane();
+        mainPane.setID("mainPane");
+        mainPane.setWidth(720);
+        mainPane.setHeight(475);
+        mainPane.setTop(120);
+        mainPane.setShowEdges(true);
+
+        drawTriangle = new DrawTriangle();
+        drawTriangle.setID("drawTriangle");
+        drawTriangle.setPoints(new Point(100, 50), new Point(150, 150), new Point(50, 150));
+        drawTriangle.setTitle("Triangle");
+        applyCommonProps(drawTriangle);
+        drawTriangle.draw();
+
+        drawCurve = new DrawCurve();
+        drawCurve.setID("drawCurve");
+        drawCurve.setStartPoint(new Point(200, 50));
+        drawCurve.setEndPoint(new Point(300, 150));
+        drawCurve.setControlPoint1(new Point(250, 0));
+        drawCurve.setControlPoint2(new Point(250, 200));
+        drawCurve.setLineCap(LineCap.ROUND);
+        drawCurve.setTitle("Curve");
+        applyCommonProps(drawCurve);
+        drawCurve.draw();
+
+        drawLinePath = new DrawLinePath();
+        drawLinePath.setID("drawLinePath");
+        drawLinePath.setStartPoint(new Point(350, 50));
+        drawLinePath.setEndPoint(new Point(450, 150));
+        drawLinePath.setTitle("LinePath");
+        applyCommonProps(drawLinePath);
+        drawLinePath.draw();
+
+        drawPolygon = new DrawPolygon();
+        drawPolygon.setID("drawPolygon");
+        drawPolygon.setPoints(
+                new Point(500, 50),
+                new Point(525, 50),
+                new Point(550, 75),
+                new Point(575, 75),
+                new Point(600, 75),
+                new Point(600, 125),
+                new Point(575, 125),
+                new Point(550, 125),
+                new Point(525, 150),
+                new Point(500, 150)
+        );
+        drawPolygon.setTitle("Polygon");
+        applyCommonProps(drawPolygon);
+        drawPolygon.draw();
+
+        drawOval = new DrawOval();
+        drawOval.setID("drawOval");
+        drawOval.setLeft(50);
+        drawOval.setTop(300);
+        drawOval.setWidth(100);
+        drawOval.setHeight(100);
+        drawOval.setTitle("Oval");
+        applyCommonProps(drawOval);
+        drawOval.draw();
+
+        drawRect = new DrawRect();
+        drawRect.setID("drawRect");
+        drawRect.setLeft(200);
+        drawRect.setTop(300);
+        drawRect.setWidth(150);
+        drawRect.setHeight(100);
+        drawRect.setTitle("Rect");
+        applyCommonProps(drawRect);
+        drawRect.draw();
+
+        drawLine = new DrawLine();
+        drawLine.setID("drawLine");
+        drawLine.setStartPoint(new Point(400, 300));
+        drawLine.setEndPoint(new Point(500, 400));
+        drawLine.setTitle("Line");
+        applyCommonProps(drawLine);
+        drawLine.draw();
+
+        final Slider shapesRotationSlider = new Slider();
+        shapesRotationSlider.setID("shapesRotation");
+        shapesRotationSlider.setMinValue(0.0);
+        shapesRotationSlider.setMaxValue(360.0);
+        shapesRotationSlider.setNumValues(361);
+        shapesRotationSlider.setWidth(400);
+        shapesRotationSlider.setValue(0.0);
+        shapesRotationSlider.setTitle("Rotate Shapes");
+        shapesRotationSlider.setLabelWidth(110);
+        shapesRotationSlider.setVertical(false);
+        shapesRotationSlider.addValueChangedHandler(new ValueChangedHandler() {
+            @Override
+            public void onValueChanged(ValueChangedEvent event) {
+                final double value = event.getValue();
+                drawTriangle.rotateTo(value);
+                drawCurve.rotateTo(value);
+                drawLinePath.rotateTo(value);
+                drawPolygon.rotateTo(value);
+                drawOval.rotateTo(value);
+                drawRect.rotateTo(value);
+                drawLine.rotateTo(value);
+            }
+        });
+
+        final Slider paneRotationSlider = new Slider();
+        paneRotationSlider.setID("paneRotation");
+        paneRotationSlider.setMinValue(0.0);
+        paneRotationSlider.setMaxValue(360.0);
+        paneRotationSlider.setNumValues(361);
+        paneRotationSlider.setWidth(400);
+        paneRotationSlider.setValue(0.0);
+        paneRotationSlider.setTitle("Rotate Pane");
+        paneRotationSlider.setLabelWidth(110);
+        paneRotationSlider.setVertical(false);
+        paneRotationSlider.addValueChangedHandler(new ValueChangedHandler() {
+            @Override
+            public void onValueChanged(ValueChangedEvent event) {
+                mainPane.rotate(event.getValue());
+            }
+        });
+
+        final Layout layout = new VStack();
+        layout.setWidth100();
+        layout.setMembersMargin(15);
+        layout.setMembers(mainPane, shapesRotationSlider, paneRotationSlider);
+        layout.draw();
+    }
+
+    @Override
+    protected boolean shouldWrapViewPanel() {
+        return true;
+    }
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

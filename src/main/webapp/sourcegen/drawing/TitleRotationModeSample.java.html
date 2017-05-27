@@ -1,0 +1,182 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import java.util.LinkedHashMap;
+
+import com.smartgwt.client.types.ArrowStyle;
+import com.smartgwt.client.types.LineCap;
+import com.smartgwt.client.types.TitleRotationMode;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.drawing.DrawCurve;
+import com.smartgwt.client.widgets.drawing.DrawItem;
+import com.smartgwt.client.widgets.drawing.DrawLine;
+import com.smartgwt.client.widgets.drawing.DrawLinePath;
+import com.smartgwt.client.widgets.drawing.DrawPane;
+import com.smartgwt.client.widgets.drawing.DrawTriangle;
+import com.smartgwt.client.widgets.drawing.Point;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.SliderItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import com.smartgwt.client.widgets.layout.VStack;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class TitleRotationModeSample implements EntryPoint {
+
+    private DrawLine drawLine = null;
+    private DrawLinePath drawLinePath = null;
+    private DrawCurve drawCurve = null;
+    private DrawTriangle drawTriangle = null;
+
+    public void onModuleLoad() {
+    	final DrawPane mainPane = new DrawPane();
+        mainPane.setShowEdges(true);
+        mainPane.setWidth(720);
+        mainPane.setHeight(220);
+		
+        final DynamicForm configForm = new DynamicForm();
+        configForm.setWidth(500);
+        configForm.setColWidths(150, "*");
+        
+        final SelectItem titleRotationMode = new SelectItem();
+        titleRotationMode.setName("titleRotationMode");
+        titleRotationMode.setTitle("Title Rotation Mode");
+        LinkedHashMap<Object, Object> map = new LinkedHashMap<Object, Object>();
+        map.put("NEVER_ROTATE", TitleRotationMode.NEVER_ROTATE);
+        map.put("WITH_ITEM", TitleRotationMode.WITH_ITEM);
+        map.put("WITH_ITEM_ALWAYS_UP", TitleRotationMode.WITH_ITEM_ALWAYS_UP);
+        map.put("WITH_LINE", TitleRotationMode.WITH_LINE);
+        map.put("WITH_LINE_ALWAYS_UP", TitleRotationMode.WITH_LINE_ALWAYS_UP);
+        titleRotationMode.setValueMap(map);
+        titleRotationMode.setDefaultValue("NEVER_ROTATE");
+        titleRotationMode.addChangedHandler(new ChangedHandler() {
+            @Override
+            public void onChanged(ChangedEvent event) {
+                createItems(mainPane, configForm);
+            }
+        });
+
+        SliderItem rotation = new SliderItem();
+        rotation.setTitle("Rotation Shapes");
+        rotation.setName("rotation");
+        rotation.setMinValue(0.0);
+        rotation.setMaxValue(360.0);
+        rotation.setNumValues(361);
+        rotation.setDefaultValue(0);
+        rotation.addChangedHandler(new ChangedHandler() {
+            @Override
+            public void onChanged(ChangedEvent event) {
+                final double value = Double.parseDouble(event.getValue().toString());
+                drawLine.rotateTo(value);
+                drawLinePath.rotateTo(value);
+                drawCurve.rotateTo(value);
+                drawTriangle.rotateTo(value);
+            }
+        });
+        configForm.setFields(titleRotationMode, rotation);
+		
+        createItems(mainPane, configForm);
+		
+        VStack vStack = new VStack();
+        vStack.setWidth("100%");
+        vStack.setMembersMargin(10);
+        vStack.addMember(mainPane);
+        vStack.addMember(configForm);
+		
+        vStack.draw();
+    }
+
+    private void createItems(DrawPane mainPane, DynamicForm configForm) {
+        mainPane.destroyItems();
+	    
+        drawTriangle = new DrawTriangle();
+        drawTriangle.setPoints(new Point(100,50), new Point(150,150), new Point(50,150));
+        drawTriangle.setTitle("Triangle");
+        applyCommonProps(drawTriangle, mainPane, configForm);
+        drawTriangle.draw();
+	    
+        drawCurve = new DrawCurve();
+        drawCurve.setStartPoint(new Point(225, 50));
+        drawCurve.setEndPoint(new Point(325, 150));
+        drawCurve.setControlPoint1(new Point(275, 0));
+        drawCurve.setControlPoint2(new Point(275, 200));
+        drawCurve.setLineCap(LineCap.ROUND);
+        drawCurve.setTitle("Curve");
+        applyCommonProps(drawCurve, mainPane, configForm);
+        drawCurve.draw();
+	    
+        drawLinePath = new DrawLinePath();
+        drawLinePath.setStartPoint(new Point(495, 150));
+        drawLinePath.setEndPoint(new Point(395, 50));
+        drawLinePath.setTitle("LinePath");
+        applyCommonProps(drawLinePath, mainPane, configForm);
+        drawLinePath.draw();
+	    
+        drawLine = new DrawLine();
+        drawLine.setStartPoint(new Point(550, 50));
+        drawLine.setEndPoint(new Point(650, 150));
+        drawLine.setEndArrow(ArrowStyle.BLOCK);
+        drawLine.setTitle("Line");
+        applyCommonProps(drawLine, mainPane, configForm);
+        drawLine.draw();
+	    
+        final double value = Double.parseDouble(configForm.getValueAsString("rotation"));
+        drawLine.rotateTo(value);
+        drawLinePath.rotateTo(value);
+        drawCurve.rotateTo(value);
+        drawTriangle.rotateTo(value);
+	}
+	
+    private void applyCommonProps(DrawItem item, DrawPane mainPane, DynamicForm configForm) {
+    	item.setDrawPane(mainPane);
+        item.setCanDrag(false);
+        String rotationMode = configForm.getValueAsString("titleRotationMode");
+        if (rotationMode != null) item.setTitleRotationMode(TitleRotationMode.valueOf(rotationMode));
+    } 
+    
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

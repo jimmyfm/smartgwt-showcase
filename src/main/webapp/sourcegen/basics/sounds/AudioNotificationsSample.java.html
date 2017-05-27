@@ -1,0 +1,103 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../../js/sh/shCore.js'></script>
+<script src='../../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.fields.DataSourceTextField;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Sound;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.validator.RegExpValidator;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.SubmitItem;
+import com.smartgwt.client.widgets.form.fields.events.ClickEvent;
+import com.smartgwt.client.widgets.form.fields.events.ClickHandler;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class AudioNotificationsSample implements EntryPoint {
+
+    public void onModuleLoad() {
+        DataSource ds = new DataSource();
+        DataSourceTextField nameField = new DataSourceTextField("name", "Name");
+        nameField.setPrimaryKey(true);
+        RegExpValidator regExpValidator = new RegExpValidator();
+        regExpValidator.setExpression("^([a-zA-Z0-9_.\\-+])+@(([a-zA-Z0-9\\-])+\\.)+[a-zA-Z0-9]{2,4}$");
+        DataSourceTextField emailField = new DataSourceTextField("email", "Email");
+        emailField.setValidators(regExpValidator);
+        ds.setClientOnly(true);          
+        ds.setFields(nameField, emailField);  
+		
+        final DynamicForm registrationForm = new DynamicForm();
+        registrationForm.setWidth(150);
+        registrationForm.setDataSource(ds);
+        TextItem nameItem = new TextItem("name");
+        nameItem.setRequired(true);
+        nameItem.setValue("John Smith");
+        TextItem emailItem = new TextItem("email");
+        emailItem.setRequired(true);
+        SubmitItem submitButton = new SubmitItem();
+        submitButton.setTitle("Submit");
+        submitButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                boolean audioIsSupported = Sound.isSupported();
+                if (registrationForm.validate()) {
+                    if (audioIsSupported) Sound.play("audios/success.wav");
+                    SC.say("Submission accepted");
+                } else {
+                    if (audioIsSupported) Sound.play("audios/error.wav");
+                    SC.warn("Submission Error", "Please complete all fields");
+                    registrationForm.focus();
+                }
+            }
+        });
+        registrationForm.setFields(nameItem, emailItem, submitButton);
+
+        registrationForm.draw();
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

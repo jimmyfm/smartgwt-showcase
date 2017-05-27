@@ -1,0 +1,122 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.fields.DataSourceTextField;
+import com.smartgwt.client.types.FieldType;
+import com.smartgwt.client.types.ListGridEditEvent;
+import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.layout.VStack;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class DialingSample implements EntryPoint {
+
+    public void onModuleLoad() {
+
+        DataSource phoneContactsDS = PhoneContactsDS.getInstance();
+
+        final ListGrid phoneContactsGrid = new ListGrid();
+        phoneContactsGrid.setWidth(500);
+        phoneContactsGrid.setHeight(224);
+        phoneContactsGrid.setAlternateRecordStyles(true);
+        phoneContactsGrid.setShowAllRecords(true);
+        phoneContactsGrid.setAutoFetchData(true);
+        phoneContactsGrid.setDataSource(phoneContactsDS);
+        phoneContactsGrid.setCanEdit(Boolean.TRUE);
+        phoneContactsGrid.setModalEditing(Boolean.TRUE);
+        phoneContactsGrid.setEditEvent(ListGridEditEvent.CLICK);
+
+        Button addContactButton = new Button("Add contact");
+        addContactButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                phoneContactsGrid.startEditingNew();
+            }
+        });
+
+        VStack layout = new VStack();
+        layout.setMembersMargin(10);
+        layout.setMembers(phoneContactsGrid, addContactButton);
+        layout.draw();
+    }
+
+    private static class PhoneContactsDS extends DataSource {
+
+        private static PhoneContactsDS instance = null;
+
+        public static PhoneContactsDS getInstance() {
+            if (instance == null) {
+                instance = new PhoneContactsDS("phoneContacts");
+            }
+            return instance;
+        }
+
+        public PhoneContactsDS(String id) {
+            setID(id);
+
+            DataSourceTextField firstNameField = new DataSourceTextField("firstName");
+            DataSourceTextField lastNameField = new DataSourceTextField("lastName");
+            DataSourceTextField phoneNumberField = new DataSourceTextField("mobile", "Mobile number");
+            phoneNumberField.setType(FieldType.PHONENUMBER);
+            setFields(firstNameField, lastNameField, phoneNumberField);
+
+            ListGridRecord testRecord = new ListGridRecord();
+            testRecord.setAttribute("firstName", "Jenny");
+            testRecord.setAttribute("lastName", "Burns");
+            testRecord.setAttribute("mobile", "5558675309");
+            ListGridRecord[] testData = new ListGridRecord[]{testRecord};
+            setTestData(testData);
+            setClientOnly(true);
+        }
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

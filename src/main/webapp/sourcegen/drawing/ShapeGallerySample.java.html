@@ -1,0 +1,173 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.types.LineCap;
+import com.smartgwt.client.types.TitleRotationMode;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.drawing.DrawCurve;
+import com.smartgwt.client.widgets.drawing.DrawItem;
+import com.smartgwt.client.widgets.drawing.DrawLine;
+import com.smartgwt.client.widgets.drawing.DrawLinePath;
+import com.smartgwt.client.widgets.drawing.DrawOval;
+import com.smartgwt.client.widgets.drawing.DrawPane;
+import com.smartgwt.client.widgets.drawing.DrawPath;
+import com.smartgwt.client.widgets.drawing.DrawRect;
+import com.smartgwt.client.widgets.drawing.DrawSector;
+import com.smartgwt.client.widgets.drawing.DrawTriangle;
+import com.smartgwt.client.widgets.drawing.Point;
+import com.smartgwt.client.widgets.events.DrawEvent;
+import com.smartgwt.client.widgets.events.DrawHandler;
+import com.smartgwt.client.widgets.layout.HStack;
+import com.smartgwt.client.widgets.layout.Layout;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class ShapeGallerySample implements EntryPoint {
+
+    private DrawPane mainPane;
+
+    private void applyCommonProps(DrawItem item) {
+        item.setDrawPane(mainPane);
+        item.setCanDrag(true);
+        item.setTitleRotationMode(TitleRotationMode.NEVER_ROTATE);
+    }
+
+    public void onModuleLoad() {
+        mainPane = new DrawPane();
+        mainPane.setWidth(720);
+        mainPane.setHeight(475);
+        mainPane.setShowEdges(true);
+        mainPane.addDrawHandler(new DrawHandler() {
+            @Override
+            public void onDraw(DrawEvent event) {
+                final DrawTriangle drawTriangle = new DrawTriangle();
+                drawTriangle.setPoints(new Point(100, 50), new Point(150, 150), new Point(50, 150));
+                drawTriangle.setTitle("Triangle");
+                applyCommonProps(drawTriangle);
+                drawTriangle.draw();
+
+                final DrawCurve drawCurve = new DrawCurve();
+                drawCurve.setStartPoint(new Point(200, 50));
+                drawCurve.setEndPoint(new Point(300, 150));
+                drawCurve.setControlPoint1(new Point(250, 0));
+                drawCurve.setControlPoint2(new Point(250, 200));
+                drawCurve.setLineCap(LineCap.ROUND);
+                drawCurve.setTitle("Curve");
+                applyCommonProps(drawCurve);
+                drawCurve.draw();
+
+                final DrawLinePath drawLinePath = new DrawLinePath();
+                drawLinePath.setStartPoint(new Point(350, 50));
+                drawLinePath.setEndPoint(new Point(450, 150));
+                drawLinePath.setTitle("LinePath");
+                applyCommonProps(drawLinePath);
+                drawLinePath.draw();
+
+                final DrawPath drawPath = new DrawPath();
+                drawPath.setPoints(
+                        new Point(500, 50),
+                        new Point(525, 50),
+                        new Point(550, 75),
+                        new Point(575, 75),
+                        new Point(600, 75),
+                        new Point(600, 125),
+                        new Point(575, 125),
+                        new Point(550, 125),
+                        new Point(525, 150),
+                        new Point(500, 150)
+                );
+                drawPath.setTitle("Path");
+                applyCommonProps(drawPath);
+                drawPath.draw();
+
+                final DrawOval drawOval = new DrawOval();
+                drawOval.setLeft(50);
+                drawOval.setTop(300);
+                drawOval.setWidth(100);
+                drawOval.setHeight(100);
+                drawOval.setTitle("Oval");
+                applyCommonProps(drawOval);
+                drawOval.draw();
+
+                final DrawRect drawRect = new DrawRect();
+                drawRect.setLeft(200);
+                drawRect.setTop(300);
+                drawRect.setWidth(150);
+                drawRect.setHeight(100);
+                drawRect.setTitle("Rectangle");
+                applyCommonProps(drawRect);
+                drawRect.draw();
+
+                final DrawLine drawLine = new DrawLine();
+                drawLine.setStartPoint(new Point(400, 300));
+                drawLine.setEndPoint(new Point(500, 400));
+                drawLine.setTitle("Line");
+                applyCommonProps(drawLine);
+                drawLine.draw();
+
+                final DrawSector drawSector = new DrawSector();
+                drawSector.setDrawPane(mainPane);
+                drawSector.setCenterPoint(new Point(550, 300));
+                drawSector.setStartAngle(0.0);
+                drawSector.setEndAngle(90.0);
+                drawSector.setRadius(100);
+                drawSector.setTitle("Sector");
+                applyCommonProps(drawSector);
+                drawSector.draw();
+            }
+        });
+
+        final Layout layout = new HStack();
+        layout.setWidth100();
+        layout.setMembers(mainPane);
+        layout.draw();
+    }
+
+    @Override
+    protected boolean shouldWrapViewPanel() {
+        return true;
+    }
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>

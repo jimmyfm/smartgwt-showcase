@@ -1,0 +1,179 @@
+<html>
+<head>
+<link rel='stylesheet' href='../../js/sh/SyntaxHighlighter.css' type='text/css' />
+<script src='../../js/sh/shCore.js'></script>
+<script src='../../js/sh/shBrushJava.js'></script>
+<style>
+* {
+font-family:Courier New,monospace;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.dp-highlighter {
+  white-space: nowrap;
+  overflow: visible;
+  width: 600px;
+  font-size: 11px;
+  font-family:Courier New,monospace;
+}
+</style>
+</head>
+<body>
+<textarea name='code' class='java:nogutter' rows='15' cols='120'>
+/*
+ * Smart GWT (GWT for SmartClient)
+ * Copyright 2008 and beyond, Isomorphic Software, Inc.
+ *
+ * Smart GWT is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License version 3
+ * as published by the Free Software Foundation.  Smart GWT is also
+ * available under typical commercial license terms - see
+ * http://smartclient.com/license
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ */
+
+import com.smartgwt.client.types.ColorPickerMode;
+import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.form.ColorPicker;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.events.ColorChangedEvent;
+import com.smartgwt.client.widgets.form.events.ColorChangedHandler;
+import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.layout.HStack;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.menu.IMenuButton;
+import com.smartgwt.client.widgets.menu.Menu;
+import com.smartgwt.client.widgets.menu.MenuItem;
+import com.smartgwt.client.widgets.menu.MenuItemSeparator;
+
+import com.google.gwt.core.client.EntryPoint;
+
+public class MenuEmbeddedComponentsSample implements EntryPoint {
+
+    public void onModuleLoad() {
+        final Menu menu = new Menu();
+        menu.setWidth(505);
+        menu.setHeight(440);
+        menu.setAutoDraw(false);
+
+        final HStack editButtons = new HStack(3);
+        editButtons.setDefaultLayoutAlign(VerticalAlignment.CENTER);
+        editButtons.setSnapTo("TR");
+        editButtons.setHeight("100%");
+        editButtons.setAutoDraw(false);
+        editButtons.setMembers(createEditButton("Cut"), createEditButton("Copy"), createEditButton("Paste"));
+
+        final MenuItem editMenuItem = new MenuItem("Edit");
+        editMenuItem.setShowRollOver(false);
+        editMenuItem.setEmbeddedComponentFields("key");
+        editMenuItem.setEmbeddedComponent(editButtons);
+
+        final Canvas colorBox = new Canvas("colorBox");
+        colorBox.setWidth(22);
+        colorBox.setHeight(22);
+
+        final TextItem bookmarkInput = new TextItem("bookmarkTitle");
+        bookmarkInput.setWidth(200);
+        bookmarkInput.setShowTitle(false);
+        bookmarkInput.setDefaultValue("Smart GWT Showcase");
+
+        final DynamicForm dynamicForm = new DynamicForm();
+        dynamicForm.setID("bookmarkForm");
+        dynamicForm.setWidth(200);
+        dynamicForm.setHeight("*");
+        dynamicForm.setSnapTo("TR");
+        dynamicForm.setFields(bookmarkInput);
+
+        final IButton addBookmarkButton = new IButton("Add");
+        addBookmarkButton.setWidth(50);
+        addBookmarkButton.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                menu.hide();
+            }
+        });
+
+        final HStack bookmarkEmbedded = new HStack(3);
+        bookmarkEmbedded.setDefaultLayoutAlign(VerticalAlignment.CENTER);
+        bookmarkEmbedded.setAutoDraw(false);
+        bookmarkEmbedded.setSnapTo("TR");
+        bookmarkEmbedded.setHeight100();
+        bookmarkEmbedded.setMembers(colorBox, dynamicForm, addBookmarkButton);
+
+        final MenuItem bookmarkMenuItem = new MenuItem("Add bookmark");
+        bookmarkMenuItem.setShowRollOver(false);
+        bookmarkMenuItem.setEmbeddedComponentFields("key");
+        bookmarkMenuItem.setEmbeddedComponent(bookmarkEmbedded);
+
+        final ColorPicker colorPicker = new ColorPicker();
+        colorPicker.setSnapTo("TR");
+        colorPicker.setStyleName("");
+        colorPicker.setBodyStyle("");
+        colorPicker.setBorder("0");
+        colorPicker.setShowShadow(false);
+        colorPicker.setShowEdges(false);
+        colorPicker.setAutoHide(false);
+        colorPicker.setShowHeader(false);
+        colorPicker.setShowFooter(false);
+        colorPicker.setCanDragReposition(false);
+        colorPicker.setDefaultPickMode(ColorPickerMode.COMPLEX);
+        colorPicker.setShowCancelButton(false);
+        colorPicker.setShowModeToggleButton(false);
+        colorPicker.setShowOkButton(false);
+
+        colorPicker.addColorChangedHandler(new ColorChangedHandler() {
+            @Override
+            public void onColorChanged(ColorChangedEvent event) {
+                colorBox.setBackgroundColor(colorPicker.getHtmlColor());
+            }
+        });
+
+        final MenuItem colorPickerMenuItem = new MenuItem();
+        colorPickerMenuItem.setShowRollOver(false);
+        colorPickerMenuItem.setEmbeddedComponent(colorPicker);
+        colorPickerMenuItem.setEmbeddedComponentFields("key");
+
+        menu.setData(
+                new MenuItem("New tab", null, "Ctrl+T"),
+                new MenuItem("New window", null, "Ctrl+N"),
+                new MenuItemSeparator(),
+                editMenuItem,
+                new MenuItemSeparator(),
+                bookmarkMenuItem,
+                new MenuItemSeparator(),
+                colorPickerMenuItem
+        );
+
+        final IMenuButton menuButton = new IMenuButton("Menu", menu);
+        menuButton.setWidth(100);
+        menuButton.setAutoDraw(false);
+
+        final HStack layout = new HStack();
+        layout.setWidth100();
+        layout.setMembers(menuButton);
+        layout.draw();
+    }
+
+    private IButton createEditButton(final String title) {
+        final IButton button = new IButton(title);
+        button.setWidth(63);
+
+        return button;
+    }
+
+}
+</textarea>
+<script class='javascript'>
+dp.SyntaxHighlighter.HighlightAll("code");
+</script>
+</body>
+</html>
