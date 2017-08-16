@@ -111,5 +111,9 @@ public class NavigationBarSample extends ShowcasePanel {
     public String getIntro() {
         return DESCRIPTION;
     }
+    @Override
+    protected boolean isTopIntro() {
+        return true;
+    }
 
 }

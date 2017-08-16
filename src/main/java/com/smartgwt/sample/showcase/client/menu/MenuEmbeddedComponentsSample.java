@@ -28,7 +28,7 @@ public class MenuEmbeddedComponentsSample extends ShowcasePanel {
             "bookmark without leaving the menu." +
             "</p>" +
             "<p>" +
-            "SmartClient makes this very straightforward with the concept of an \"embedded component\", " +
+            "Smart GWT makes this very straightforward with the concept of an \"embedded component\", " +
             "allowed for any MenuItem." +
             "</p>";
 

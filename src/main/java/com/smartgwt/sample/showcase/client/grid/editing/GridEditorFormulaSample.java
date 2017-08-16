@@ -16,8 +16,8 @@ import com.smartgwt.sample.showcase.client.data.OrderItemLocalDS;
 
 public class GridEditorFormulaSample extends ShowcasePanel {
     private static final String DESCRIPTION = "<p>This example demonstrates a grid editorFormula "+
-        "field. Select an item and edit the cost to see price calculated from cost and separate "+
-        "markup percent. Price can also be entered to override calculation. Note that cost is not saved.</p>";
+        "field. Select an item and edit the cost to see the price calculated from the cost and separate "+
+        "markup percent. Price can also be entered to override the calculation. Note that the cost is not saved.</p>";
 
     public static class Factory implements PanelFactory {
         private String id;

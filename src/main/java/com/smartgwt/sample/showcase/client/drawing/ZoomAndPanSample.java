@@ -23,7 +23,7 @@ import com.smartgwt.sample.showcase.client.PanelFactory;
 import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 public class ZoomAndPanSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "Sample of zooming and panning features of Drawing module. Use slider for zoom and drag image with the mouse.";
+    private static final String DESCRIPTION = "Sample of zooming and panning features of the Drawing module. Use the slider to zoom and drag the image with the mouse.";
     private DrawPane drawPane;
 
     public static class Factory implements PanelFactory {

@@ -1,21 +1,19 @@
 package com.smartgwt.sample.showcase.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Date;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.i18n.client.DateTimeFormat;
-
 import com.smartgwt.client.Version;
 import com.smartgwt.client.core.KeyIdentifier;
 import com.smartgwt.client.types.Alignment;
@@ -26,13 +24,15 @@ import com.smartgwt.client.types.NavigationDirection;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.TabBarControls;
 import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.util.EventHandler;
 import com.smartgwt.client.util.AutoTest;
 import com.smartgwt.client.util.Browser;
+import com.smartgwt.client.util.EventHandler;
 import com.smartgwt.client.util.Page;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.StatefulCanvas;
+import com.smartgwt.client.widgets.TitleFormatter;
 import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.DrawEvent;
 import com.smartgwt.client.widgets.events.DrawHandler;
@@ -44,8 +44,8 @@ import com.smartgwt.client.widgets.events.VisibilityChangedEvent;
 import com.smartgwt.client.widgets.events.VisibilityChangedHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
-import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.SpacerItem;
+import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
@@ -59,10 +59,10 @@ import com.smartgwt.client.widgets.layout.HStack;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.NavigationBar;
+import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.SplitPane;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.layout.VStack;
-import com.smartgwt.client.widgets.layout.SectionStack;
 import com.smartgwt.client.widgets.layout.events.PaneChangedEvent;
 import com.smartgwt.client.widgets.layout.events.PaneChangedHandler;
 import com.smartgwt.client.widgets.menu.Menu;
@@ -72,7 +72,6 @@ import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
-import com.smartgwt.client.widgets.tab.TabBar;
 import com.smartgwt.client.widgets.tab.events.TabSelectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
 import com.smartgwt.client.widgets.toolbar.ToolStrip;
@@ -178,6 +177,7 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
     private List<ExplorerTreeNode> lastOpenedFolders = new ArrayList<ExplorerTreeNode>();
 
     public void onModuleLoad() {
+    	
         final boolean useDesktopMode = ShowcaseConfiguration.
             getSingleton().isOpenForTesting() || Browser.getIsDesktop();
 
@@ -261,8 +261,10 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
             valueMap.put("Enterprise", M.enterpriseSkinName());
             valueMap.put("EnterpriseBlue", M.enterpriseBlueSkinName());
             valueMap.put("Graphite", M.graphiteSkinName());
-            valueMap.put("Simplicity", M.simplicitySkinName());
             valueMap.put("Tahoe", M.tahoeSkinName());
+            valueMap.put("Simplicity", M.simplicitySkinName());
+            valueMap.put("TreeFrog", M.treeFrogSkinName());
+            valueMap.put("BlackOps", M.blackOpsSkinName());
             selectItem.setValueMap(valueMap);
             selectItem.setHoverWidth(300);
             selectItem.setHoverHeight(20);
@@ -476,10 +478,57 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
             mainTabSet.setHeight100();
             mainTabSet.setDestroyPanes(true);
             mainTabSet.setPaneContainerOverflow(Overflow.AUTO);
+            mainTabSet.setAutoChildProperties("tab", new StatefulCanvas() {{
+            	// redraw on state change so we can show different icons for different states
+            	setRedrawOnStateChange(true);
+            	// dynamically build the title based on the extra icon for the current state, plus the
+            	// actual title string
+            	setTitleFormatter(new TitleFormatter() {
+
+					@Override
+					public String formatTitle(StatefulCanvas component, String title) {
+						
+						String icon = null;
+
+						// History token is copied from the tab config onto the live tab button
+						String nodeID = component.getAttribute("historyToken");
+						
+						// No history token - likely the home tab
+						if (nodeID == null) {
+							Tab tab = mainTabSet.getTab(component.getID());
+							if (tab.getPane() == homePanel) {
+								nodeID = "main";
+							}
+						}
+                        Tree samples = sideNav.getData();
+                        ExplorerTreeNode node = (ExplorerTreeNode)samples.find("nodeID", nodeID);
+                        
+                        if (node == null) return title;
+
+                    	// replace the default title with the result of a getHTML call on the node
+                    	// and pick up the appropriate icon
+                    	String nodeTitle = node.getHTML();
+	                    if (component.isSelected()) icon = node.getSelectedIcon();
+	                    if (icon == null) {
+	                    	icon = node.getIcon();
+	                    }
+                        
+	                    if (icon == null) {
+	                        icon = "silk/application_view_list_bgwhite.png";
+	                    }
+	                    
+	                    return "<nobr>" + Canvas.imgHTML(icon, 16, 16) + "&nbsp;<span " +
+	                      "style='display:inline-block;line-height:16px;vertical-align:" +
+	                      "text-top'>" + nodeTitle + "</span></nobr>";
+					}
+
+					
+				});
+            }});
             mainTabSet.addTabSelectedHandler(new TabSelectedHandler() {
                 public void onTabSelected(TabSelectedEvent event) {
                     Tab selectedTab = event.getTab();
-
+                    
                     Canvas pane = selectedTab.getPane();
                     assert pane == homePanel || pane instanceof ShowcasePanel;
                     if (pane instanceof ShowcasePanel) {
@@ -799,10 +848,12 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
             final Tab tab = new Tab();
             tab.setID("main_tab");
             tab.setTitle(M.homeTabTitle().asString());
-            tab.setIcon("silk/house.png", 16);
+            // As with the other (closeable) tabs, apply the icon through the tab title
+//            tab.setIcon("silk/house.png", 16);
             tab.setWidth(80);
             tab.setPaneMargin(0);
             tab.setPane(homePanel);
+
             mainTabSet.addTab(tab);
             final List<Object> actualControls = new ArrayList<Object>(2 + detailTools.size());
             actualControls.add(TabBarControls.TAB_SCROLLER);
@@ -1024,7 +1075,7 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
             final String folderName = folderTreeNode.getHTML();
 
             String panelID = folderTreeNode.getNodeID();
-
+            
             String icon = folderTreeNode.getIcon();
             if (icon == null) {
                 icon = "silk/plugin.png";
@@ -1044,6 +1095,8 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
                     tab.setAttribute("historyToken", folderTreeNode.getNodeID());
                     tab.setContextMenu(contextMenu);
 
+                    // Note that this static initial specification may be overridden by the result of
+                    // the dynamic titleFormatter applied to the tab
                     tab.setTitle("<nobr>" + Canvas.imgHTML(icon, 16, 16) + "&nbsp;<span " +
                         "style='display:inline-block;line-height:16px;vertical-align:" +
                         "text-top'>" + folderName + "</span></nobr>");
@@ -1120,6 +1173,9 @@ public class Showcase implements EntryPoint, HistoryListener, ShowcaseNavigator 
                         // one can retrieve the history token and update the URL
                         tab.setAttribute("historyToken", explorerTreeNode.getNodeID());
                         tab.setContextMenu(contextMenu);
+
+                        // Note that this static title may be overridden by the result of the
+                        // dynamic titleFormatter applied to all tabs in this tabset
                         tab.setTitle("<nobr>" + Canvas.imgHTML(icon, 16, 16) + "&nbsp;" +
                             "<span style='display:inline-block;line-height:16px;" +
                             "vertical-align:text-top'>" + sampleName + "</span></nobr>");

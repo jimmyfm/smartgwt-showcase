@@ -16,7 +16,7 @@ import com.smartgwt.sample.showcase.client.PanelFactory;
 import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 public class ToolStripSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "Click the icons at left to see \"radio\"-style selection. Click the drop-down to see font options.";
+    private static final String DESCRIPTION = "Click the alignment icons to see \"radio\"-style selection. Click the drop-downs to see font options or resizing options.";
 
     public static class Factory implements PanelFactory {
         private String id;

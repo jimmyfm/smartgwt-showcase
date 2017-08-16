@@ -24,7 +24,7 @@ import com.smartgwt.sample.showcase.client.PanelFactory;
 import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 public class LinearGradientSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "Sample of using linear type of gradient.";
+    private static final String DESCRIPTION = "Sample of using a linear type of gradient.";
     private DrawPane drawPane;
     private DynamicForm linearGradientDynamicForm,
                         linearGradientSliderDynamicForm;

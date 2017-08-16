@@ -11,10 +11,10 @@ import com.smartgwt.sample.showcase.client.PanelFactory;
 import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 public class BasicCustomTabOrderSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "Click a button to give it keyboard focus and use Tab and Shift+Tab keys to move"
-    		+ "focus through the buttons. Now use the select item to modify the tabbing order.&lt;br&gt;"
-    		+ "SmartClient provides simple APIs to manage tab position of specific components"
-    		+ "while maintaining automatic tabIndex management for the application as a whole."; 
+    private static final String DESCRIPTION = "<p>Click a button to give it keyboard focus and use Tab and Shift+Tab keys to move"
+    		+ "focus through the buttons. Now use the select item to modify the tabbing order.</p>"
+    		+ "<p>Smart GWT provides simple APIs to manage the tab position of specific components "
+    		+ "while maintaining automatic tabIndex management for the application as a whole.</p>"; 
 
     public static class Factory implements PanelFactory {
         private String id;

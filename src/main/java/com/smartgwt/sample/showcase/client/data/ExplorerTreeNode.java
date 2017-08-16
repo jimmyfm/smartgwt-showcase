@@ -27,8 +27,34 @@ public class ExplorerTreeNode extends TreeNode {
     {
         this(name, nodeID, parentNodeID, icon, factory, enabled, true, idSuffix, version);
     }
-
+    
     public ExplorerTreeNode(String name, String nodeID, String parentNodeID, String icon, 
+            PanelFactory factory, boolean enabled, boolean testEnabled, String idSuffix, String version)
+    {
+        this(name, nodeID, parentNodeID, icon, null, factory, enabled, testEnabled, idSuffix, version);
+    }
+
+    // variants passing in selectedIcon
+    public ExplorerTreeNode(SafeHtml name, String nodeID, String parentNodeID, String icon, String selectedIcon,
+            PanelFactory factory, boolean enabled, String idSuffix)
+    {
+        this(name.asString(), nodeID, parentNodeID, icon, selectedIcon, factory, enabled, true, idSuffix, null);
+    }
+
+    public ExplorerTreeNode(String name, String nodeID, String parentNodeID, String icon, String selectedIcon, 
+                            PanelFactory factory, boolean enabled, String idSuffix)
+    {
+        this(name, nodeID, parentNodeID, icon, selectedIcon, factory, enabled, true, idSuffix, null);
+    }
+
+    public ExplorerTreeNode(String name, String nodeID, String parentNodeID, String icon, String selectedIcon,
+                            PanelFactory factory, boolean enabled, String idSuffix, String version)
+    {
+        this(name, nodeID, parentNodeID, icon, selectedIcon, factory, enabled, true, idSuffix, version);
+    }
+    
+    //
+    public ExplorerTreeNode(String name, String nodeID, String parentNodeID, String icon, String selectedIcon,
                PanelFactory factory, boolean enabled, boolean testEnabled, String idSuffix, String version)
     {
         setName(name.replaceAll("<.*?>", ""));
@@ -37,6 +63,7 @@ public class ExplorerTreeNode extends TreeNode {
         setParentNodeID(parentNodeID.replace("-", "_") + idSuffix);
         setThumbnail("thumbnails/" + nodeID.replace("-", "_") + ".gif");
         setIcon(icon);
+        setSelectedIcon(selectedIcon);
         setVersion(version);
         setFactory(factory);
 
@@ -59,6 +86,7 @@ public class ExplorerTreeNode extends TreeNode {
         setHTML           (originalNode.getHTML());
         setThumbnail      (originalNode.getThumbnail());
         setIcon           (originalNode.getIcon());
+        setSelectedIcon   (originalNode.getSelectedIcon());
         setVersion        (originalNode.getVersion());
         setFactory        (originalNode.getFactory());
         setSampleClassName(originalNode.getSampleClassName());
@@ -128,6 +156,14 @@ public class ExplorerTreeNode extends TreeNode {
 
     public String getIcon() {
         return getAttributeAsString("icon");
+    }
+
+    public void setSelectedIcon(String icon) {
+        setAttribute("selectedIcon", icon);
+    }
+
+    public String getSelectedIcon() {
+        return getAttributeAsString("selectedIcon");
     }
 
     public void setThumbnail(String thumbnail) {

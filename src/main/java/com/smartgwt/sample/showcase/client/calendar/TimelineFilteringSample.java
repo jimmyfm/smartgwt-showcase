@@ -21,7 +21,7 @@ public class TimelineFilteringSample extends ShowcasePanel {
 
     private static final String DESCRIPTION = "<p>This example shows how individual events, " +
             "lanes and even date-columns can be filtered out of the Timeline at runtime.  " +
-            "Select the checkboxes, or enter a string into the text-boxes below to see the " +
+            "Select the checkboxes, or enter a string into the text-boxes to see the " +
             "view reconstructed accordingly.</p>";
 
     public static class Factory implements PanelFactory {

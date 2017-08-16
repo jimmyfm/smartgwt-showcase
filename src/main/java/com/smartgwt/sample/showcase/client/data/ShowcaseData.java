@@ -380,17 +380,17 @@ public class ShowcaseData {
         if (data == null) {
             data = new ArrayList<ExplorerTreeNode>();
             data.addAll(Arrays.asList(new ExplorerTreeNode[] {
-                    new ExplorerTreeNode(M.homeNodeName(), "main", "root", "silk/house.png", null, true, idSuffix),
+                    new ExplorerTreeNode(M.homeNodeName(), "main", "root", "silk/house.png", "silk/house_white.png", null, true, idSuffix),
                     new ExplorerTreeNode("Featured Samples", "featured-category", "root", "pieces/16/cube_green.png", null, true, idSuffix),
                     // this is a shortcut to "New samples in XX"
                     new ExplorerTreeNode("New Samples in " + getNewSamplesSuffix(), "new-category-fs", "featured-category", "silk/new.png", null, true, idSuffix),
                     new ExplorerTreeNode("Demo Application", "featured-complete-app", "featured-category", "silk/layout_content.png", new MiniAppSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Smart GWT MVC", "featured-smartgwt-mvc", "featured-category", "silk/arrow_join.png", new TreeEditingSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Grid Cell Widgets", "featured-grid-cell-widgets", "featured-category", null, new GridCellWidgetsSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Grid Cell Widgets", "featured-grid-cell-widgets", "featured-category", "silk/application_view_list.png", "silk/application_view_list_bgwhite.png", new GridCellWidgetsSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Miller Columns", "featured-miller-columns", "featured-category", "silk/ipod.png", new MillerColumnsSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Nested Grid", "featured-nested-grid", "featured-category", "crystal/16/mimetypes/widget_doc.png", new GridRowExpansionRelatedRecordsSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Tile Sort &amp; Filtering", "featured-tile-filtering", "featured-category", "silk/application_view_tile.png", new FilterSortTilingSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Print Grid", "featured-print-grid", "featured-category", "silk/printer.png", new PrintingSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Tile Sort &amp; Filtering", "featured-tile-filtering", "featured-category", "silk/application_view_tile.png", "silk/application_view_tile_bgwhite.png", new FilterSortTilingSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Print Grid", "featured-print-grid", "featured-category", "silk/printer.png", "silk/printer_bgwhite.png", new PrintingSample.Factory(), true, idSuffix),
 
                     // Disabled for now. We don't want to expose this folder until we have a certain number of samples complete.
                     new ExplorerTreeNode("Mobile samples", "mobile", "root", "silk/phone.png", null, true, idSuffix),   
@@ -428,25 +428,25 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Title Auto-Fit", "navigation-bar-ms", "navigation-bar-folder-ms", "silk/phone.png", new NavigationBarSample.Factory(), true, idSuffix, "5.0"),
                     new ExplorerTreeNode("Animated Transitions", "animated-transitions-ms", "navigation-bar-folder-ms", "silk/phone.png", new MobileAnimatedTransitionsSample.Factory(), true, idSuffix, "5.1"),
 
-                    new ExplorerTreeNode("Adv. Filter Builder", "featured-filter-builder-grid", "featured-category", "crystal/oo/sc_insertformula.png", new GridNestedFilterBulderSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Frozen Columns", "featured-tree-grid", "featured-category", "silk/chart_organisation.png", new FrozenColumnsSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Adv. Filter Builder", "featured-filter-builder-grid", "featured-category", "crystal/oo/sc_insertformula.png", "crystal/oo/sc_insertformula_white.png", new GridNestedFilterBulderSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Frozen Columns", "featured-tree-grid", "featured-category", "silk/chart_organisation.png", "silk/chart_organisation_white.png", new FrozenColumnsSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Grid Header Spans", "featured-grid-header-span", "featured-category", null, new GridHeaderSpansSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Live Grid", "featured-grid-live", "featured-category", "silk/application_put.png", new LiveGridFetchSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Live Grid", "featured-grid-live", "featured-category", "silk/application_put.png", "silk/application_put_white.png", new LiveGridFetchSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Vertical Tabs", "featured-vertical-tabs", "featured-category", "silk/tab.png", new OrientationSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Databound Calendar", "featured-databound-calendar-category", "featured-category", "crystal/16/apps/cal.png", new DataBoundCalendarSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Databound Calendar", "featured-databound-calendar-category", "featured-category", "crystal/16/apps/cal.png", "crystal/16/apps/cal_white.png", new DataBoundCalendarSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Dropdown Grid", "featured-dropdown-grid-category", "featured-category", "crystal/16/actions/completion.png", new DropdownListGridSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Dynamic Grouping", "featured-dynamic-grouping", "featured-category", "silk/application_side_tree.png", new GridDynamicGroupingSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Dynamic Grouping", "featured-dynamic-grouping", "featured-category", "silk/application_side_tree.png", "silk/application_side_tree_bgwhite.png", new GridDynamicGroupingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Animation Playpen", "featured-animation-playpen", "featured-category", "silk/layers.png", new AnimationPlaypenSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Master Detail", "featured-master-detail", "featured-category", "silk/application_split.png", new GridFormUpdateSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Master Detail", "featured-master-detail", "featured-category", "silk/application_split.png", "silk/application_split_white.png", new GridFormUpdateSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("RestDataSource", "featured-restfulds", "featured-category", "silk/arrow_refresh_small.png", new RestfulDataSourceSample.Factory(), true, idSuffix),
                     //new ExplorerTreeNode("Yahoo! JSON Service", "featured-json-integration-category-yahoo", "featured-category", "crystal/16/apps/yahoo_protocol.png", new YahooJsonServicesSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Pattern Reuse", "featured-pattern-reuse", "featured-category", "silk/database_table.png", new PatternReuseSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("XSD DataSource", "featured-xsd-ds", "featured-category", "silk/database_gear.png", new XsdDataSourceSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("GWT Integration", "featured-gwt-integration", "featured-category", "gwt/icon16.png", new GwtShowcaseSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Databound Dragging", "grid-db-dragging-featured-category", "featured-category", "silk/database_link.png", new GridDataBoundDragDropSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Adaptive Filter", "grid-adaptive-filter-featured-category", "featured-category", "silk/funnel.png", new AdaptiveFilterSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Formula &amp; Summary Builder", "formula-sumamry-builder-featured-category", "featured-category", "crystal/oo/sc_insertformula.png", new FormulaSummaryBuilderSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Grid Summaries", "grid-summaries-featured-category", "featured-category", "crystal/16/apps/tooloptions.png", new GridSummariesSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Adaptive Filter", "grid-adaptive-filter-featured-category", "featured-category", "silk/funnel.png", "silk/funnel_white.png", new AdaptiveFilterSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Formula &amp; Summary Builder", "formula-sumamry-builder-featured-category", "featured-category", "crystal/oo/sc_insertformula.png", "crystal/oo/sc_insertformula_white.png", new FormulaSummaryBuilderSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Grid Summaries", "grid-summaries-featured-category", "featured-category", "crystal/16/apps/tooloptions.png", "crystal/16/apps/tooloptions_white.png", new GridSummariesSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Offline Preferences", "grid-offline-pref-featured-category", "featured-category", "crystal/16/apps/tooloptions.png", new OfflinePreferencesSample.Factory(), true, idSuffix),
 
                     // New samples since previous release
@@ -496,7 +496,7 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Column Align", "grid-appearance-columnalign", "grid-appearance-category", null, new ColumnAlignSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Column Header", "grid-appearance-columnheader", "grid-appearance-category", null, new ColumnHeadersSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Column Titles", "grid-appearance-columntitles", "grid-appearance-category", null, new ColumnTitlesSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Formula &amp; Summary Builder", "grid-appearance-formula-sumamry-builder", "grid-appearance-category", "crystal/oo/sc_insertformula.png", new FormulaSummaryBuilderSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Formula &amp; Summary Builder", "grid-appearance-formula-sumamry-builder", "grid-appearance-category", "crystal/oo/sc_insertformula.png", "crystal/oo/sc_insertformula_white.png", new FormulaSummaryBuilderSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Custom Header Context Menu", "grid-appearance-custom-menu", "grid-appearance-category", null, new CustomHeaderMenuSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Grid Top Header", "grid-top-header", "grid-appearance-category", null, new GridTopHeaderSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Row Numbering", "grid-row-numbering", "grid-appearance-category", null, new RowNumberingSample.Factory(), true, idSuffix),
@@ -506,7 +506,7 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Rollover", "grid-interaction-rollover", "grid-interaction-category", null, new RolloverSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Single Select", "grid-interaction-singleselect", "grid-interaction-category", null, new SingleSelectSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Simple Select", "grid-interaction-simpleselect", "grid-interaction-category", null, new SimpleSelectSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Checkbox Select", "grid-interaction-checkboxselect", "grid-interaction-category", "silk/application_side_boxes.png", new CheckboxSelectSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Checkbox Select", "grid-interaction-checkboxselect", "grid-interaction-category", "silk/application_side_boxes.png", "silk/application_side_boxes_bgwhite.png", new CheckboxSelectSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Multiple Select", "grid-interaction-multiselect", "grid-interaction-category", null, new MultipleSelectSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Cell Selection", "grid-interaction-cellselection", "grid-interaction-category", null, new CellSelectionSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Drag Select", "grid-interaction-dragselect", "grid-interaction-category", null, new DragSelectSample.Factory(), true, idSuffix),
@@ -541,7 +541,7 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Filtering", "grid-filter-category", "grid-category", "pieces/16/cube_blue.png", null, true, idSuffix),
                     new ExplorerTreeNode("Filter", "grid-sortfilter-filter", "grid-filter-category", null, new GridFilterSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Live Filter", "grid-sortfilter-live-filter", "grid-filter-category", null, new GridLiveFilterSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Adaptive Filter", "grid-sortfilter-adaptive-filter", "grid-filter-category", "silk/funnel.png", new AdaptiveFilterSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Adaptive Filter", "grid-sortfilter-adaptive-filter", "grid-filter-category", "silk/funnel.png", "silk/funnel_white.png", new AdaptiveFilterSample.Factory(), true, idSuffix),
                 new ExplorerTreeNode("Inline Operator Filter", "grid-sortfilter-inline-operator-filter", "grid-filter-category", null, new GridInlineOperatorFilterSample.Factory(), true, idSuffix, "6.0"),
                     new ExplorerTreeNode("Custom Filter", "grid-custom-filter-builder", "grid-filter-category", null, new GridFilterBulderSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Nested Filter", "grid-nested-filter-builder", "grid-filter-category", null, new GridNestedFilterBulderSample.Factory(), true, idSuffix),
@@ -591,7 +591,7 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Custom Grouping", "grid-grouping-custom", "grid-grouping-category", null, new GridCustomGroupingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Multi Grouping", "grid-grouping-multi", "grid-grouping-category", null, new MultiGroupingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Grouping Modes", "grid-grouping-modes", "grid-grouping-category", null, new GridGroupingModesSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Grid Summaries", "grid-summaries", "grid-grouping-category", "crystal/16/apps/tooloptions.png", new GridSummariesSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Grid Summaries", "grid-summaries", "grid-grouping-category", "crystal/16/apps/tooloptions.png", "crystal/16/apps/tooloptions_white.png", new GridSummariesSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Grid Header Summaries", "grid-header-summaries", "grid-grouping-category", "crystal/16/apps/tooloptions.png", new GridSummariesInHeaderSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Multiline Summaries", "grid-ml-summaries", "grid-grouping-category", "crystal/16/apps/tooloptions.png", new GridMultiLineSummariesSample.Factory(), true, idSuffix),
 
@@ -653,7 +653,7 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Databound Dragging", "grid-db-dragging", "grid-category", "silk/database_link.png", new GridDataBoundDragDropSample.Factory(), true, idSuffix),
 
                     new ExplorerTreeNode("Printing", "grid-print-grid", "grid-category", "silk/printer.png", new PrintingSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Grid Cell Widgets", "grid-cell-widgets", "grid-category", null, new GridCellWidgetsSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Grid Cell Widgets", "grid-cell-widgets", "grid-category", "silk/application_view_list.png", "silk/application_view_list_bgwhite.png", new GridCellWidgetsSample.Factory(), true, idSuffix),
 
 
                     new ExplorerTreeNode("Tree", "tree-category", "root", "silk/chart_organisation.png", null, true, idSuffix),
@@ -685,10 +685,10 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Checkbox Tree", "tree-checkbox", "tree-category", null, new CheckboxTreeSample.Factory(), true, idSuffix),
 
                     new ExplorerTreeNode("Calendar", "calendar-category", "root", "crystal/16/apps/cal.png", null, true, idSuffix),
-                    new ExplorerTreeNode("Simple Calendar", "simple-calendar-category", "calendar-category", "silk/calendar_view_day.png", new SimpleCalendarSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Simple Calendar", "simple-calendar-category", "calendar-category", "silk/calendar_view_day.png", "silk/calendar_view_day_white.png", new SimpleCalendarSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Databound Calendar", "databound-calendar-category", "calendar-category", "silk/calendar_view_day.png", new DataBoundCalendarSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Compact Calendar", "compact-calendar-category", "calendar-category", "widgets/date_time.png", new CompactCalendarSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Workday Calendar", "workday-calendar-category", "calendar-category", "crystal/16/actions/5days.png", new WorkdayCalendarSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Compact Calendar", "compact-calendar-category", "calendar-category", "widgets/date_time.png", "widgets/date_time_white.png", new CompactCalendarSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Workday Calendar", "workday-calendar-category", "calendar-category", "crystal/16/actions/5days.png", "crystal/16/actions/5days_white.png", new WorkdayCalendarSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Custom Event Editing", "custom-editing-calendar-category", "calendar-category", "crystal/16/apps/date.png", new CustomEventCalendarSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Event Auto-Arranging", "event-autoarranging-calendar-category", "calendar-category", "crystal/16/actions/5days.png", new AutoArrangeEventsCalendarSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Event Overlapping", "event-overlapping-calendar-category", "calendar-category", "crystal/16/actions/5days.png", new OverlappingEventsCalendarSample.Factory(), true, idSuffix),
@@ -702,7 +702,6 @@ public class ShowcaseData {
 
                     new ExplorerTreeNode("Data View / Tiling", "tiling-category", "root", "crystal/16/actions/view_icon.png", null, true, idSuffix),
                     new ExplorerTreeNode("Basic", "tiling-basic", "tiling-category", null, new BasicTilingSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Load on Demand", "tiling-load-on-demand", "tiling-category", null, new LoadOnDemandTilingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Filter &amp; Sort", "tiling-filter-sort", "tiling-category", null, new FilterSortTilingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Tile Editing", "tiling-editing", "tiling-category", null, new TileEditingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Custom Tiles", "tiling-custom", "tiling-category", null, new CustomTilesSample.Factory(), true, idSuffix, "4.1"),
@@ -761,7 +760,7 @@ public class ShowcaseData {
                     new ExplorerTreeNode("Nesting", "layout-nesting", "layout-category", null, new NestingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("User Sizing", "layout-user-sizing", "layout-category", null, new UserSizingSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Border Layout", "layout-border", "layout-category", null, new FreeSpaceSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Center Align", "layout-center-align", "layout-category", "crystal/16/actions/show_table_row.png", new CenterAlignSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Center Align", "layout-center-align", "layout-category", "crystal/16/actions/show_table_row.png", "crystal/16/actions/show_table_row_white.png", new CenterAlignSample.Factory(), true, idSuffix),
                     new ExplorerTreeNode("Snap To", "layout-snap-to", "layout-category", null, new LayoutSnapToSample.Factory(), true, idSuffix, "6.0"),
                     new ExplorerTreeNode("Layout Mins &amp; Maxs", "layout-mins-maxs", "layout-category", null, new LayoutMinsMaxsSample.Factory(), true, idSuffix, "6.0"),
                     new ExplorerTreeNode("Portal(manual)", "layout-portal-manual", "layout-category", "silk/application_view_tile.png", new SimplePortalManualSample.Factory(), true, idSuffix),
@@ -815,11 +814,12 @@ public class ShowcaseData {
 
                     new ExplorerTreeNode("Menus", "menus-category", "root", "silk/application_osx.png", null, true, idSuffix),
                     new ExplorerTreeNode("Appearance", "menus-category-appearance", "menus-category", null, new MenuAppearanceSample.Factory(), true, idSuffix),
-                    //new ExplorerTreeNode("Dynamic Items", "menus-category-dynamic", "menus-category", null, new MenuDynamicItemsSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Sub Menus", "menus-category-submenus", "menus-category", null, new MenuSubmenusSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Dynamic Items", "menus-category-dynamic", "menus-category", null, new MenuDynamicItemsSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Submenus", "menus-category-submenus", "menus-category", null, new MenuSubmenusSample.Factory(), true, idSuffix),
+                    new ExplorerTreeNode("Custom Columns", "menus-category-customcolumns", "menus-category", "silk/application_view_detail.png", new MenuCustomColumnsSample.Factory(), true, idSuffix, "4.1"),
                     new ExplorerTreeNode("Embedded Components", "menus-category-embeddedcomponents", "menus-category", null, new MenuEmbeddedComponentsSample.Factory(), true, idSuffix, "6.0"),
                     new ExplorerTreeNode("Tree Binding", "menus-category-treebinding", "menus-category", "silk/chart_organisation.png", new MenuTreeBindingSample.Factory(), true, idSuffix),
-                    new ExplorerTreeNode("Custom Columns", "menus-category-customcolumns", "menus-category", "silk/application_view_detail.png", new MenuCustomColumnsSample.Factory(), true, idSuffix, "4.1"),
+                    new ExplorerTreeNode("Adaptive Menu", "menus-category-adaptive-menu-ms", "menus-category", null, new AdaptiveMenuSample.Factory(), true, idSuffix, "6.0"),
                     // this sample is hidden because the "Mobile Samples" folder is hidden as well.
                     //new ExplorerTreeNode("Mobile UI", "menus-mobile-ui", "menus-category", null, new MobileMenusSample.Factory(), true, idSuffix, "5.0"),
 

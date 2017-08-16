@@ -14,7 +14,7 @@ import com.smartgwt.sample.showcase.client.PanelFactory;
 import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 public class OrientationSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "Tabs can be horizontally or vertically oriented. To select tabs, click on them, or on " +
+    private static final String DESCRIPTION = "Tabs can be horizontally or vertically oriented. To select tabs, click on them, or " +
             "click the \"Select Blue\" and \"Select Green\" buttons.";
 
     public static class Factory implements PanelFactory {

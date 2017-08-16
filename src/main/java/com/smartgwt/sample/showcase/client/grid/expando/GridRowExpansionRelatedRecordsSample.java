@@ -167,6 +167,7 @@ public class GridRowExpansionRelatedRecordsSample extends ShowcasePanel {
             listGrid.setHeight(500);
             listGrid.setDrawAheadRatio(4);
             listGrid.setCanExpandRecords(true);
+            listGrid.setExpansionFieldImageShowSelected(true);
 
             listGrid.setAutoFetchData(true);
             listGrid.setDataSource(dataSource);

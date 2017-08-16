@@ -22,7 +22,7 @@ public class ButtonAdaptiveWidthSample extends ShowcasePanel {
             "adaptive-width Button will hide its title in an attempt to prevent the parent "+
             "container from overflowing. "+
             "<p>"+
-            "An adaptive-width Button is shown below. Drag the resize bar to simulate "+
+            "An adaptive-width Button is shown here. Drag the resize bar to simulate "+
             "varying widths of the parent container and see how the Button reacts.";
 
     public static class Factory implements PanelFactory {

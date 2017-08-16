@@ -33,6 +33,10 @@ public interface ShowcaseMessages extends Messages {
     public String simplicitySkinName();
     @DefaultMessage("Tahoe")
     public String tahoeSkinName();
+    @DefaultMessage("TreeFrog")
+    public String treeFrogSkinName();
+    @DefaultMessage("Black Ops")
+    public String blackOpsSkinName();
     
     @DefaultMessage("Density")
     public SafeHtml densityItemTitle();

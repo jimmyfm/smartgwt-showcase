@@ -56,20 +56,6 @@ public class GridDataValidationSample extends ShowcasePanel {
         ListGridField memberG8Field = new ListGridField("member_g8", "Member G8");
         ListGridField populationField = new ListGridField("population", "Population");
         populationField.setType(ListGridFieldType.INTEGER);
-        populationField.setCellFormatter(new CellFormatter() {
-            public String format(Object value, ListGridRecord record, int rowNum, int colNum) {
-                if (value instanceof Number) {
-                    NumberFormat nf = NumberFormat.getFormat("0,000");
-                    try {
-                        return nf.format(((Number) value).longValue());
-                    } catch (Exception e) {
-                        return value.toString();
-                    }
-                } else {
-                    return value == null ? null : value.toString();
-                }
-            }
-        });
 
         IntegerRangeValidator integerRangeValidator = new IntegerRangeValidator();
         integerRangeValidator.setMin(1);

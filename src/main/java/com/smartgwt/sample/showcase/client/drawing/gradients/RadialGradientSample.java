@@ -23,7 +23,7 @@ import com.smartgwt.sample.showcase.client.PanelFactory;
 import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 public class RadialGradientSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "Sample of using radial type of gradient.";
+    private static final String DESCRIPTION = "Sample of using a radial type of gradient.";
     private DrawPane drawPane;
     private DynamicForm radialGradientDynamicForm;
     private DynamicForm radialGradientSliderDynamicForm;

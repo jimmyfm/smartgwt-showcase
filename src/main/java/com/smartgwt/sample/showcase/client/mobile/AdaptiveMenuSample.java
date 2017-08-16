@@ -173,4 +173,9 @@ public class AdaptiveMenuSample extends ShowcasePanel {
     public String getIntro() {
         return DESCRIPTION;
     }
+    
+    @Override
+    protected boolean isTopIntro() {
+        return true;
+    }
 }

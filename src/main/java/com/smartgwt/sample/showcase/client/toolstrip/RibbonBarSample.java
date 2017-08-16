@@ -109,4 +109,8 @@ public class RibbonBarSample extends ShowcasePanel {
     public String getIntro() {
         return DESCRIPTION;
     }
+    
+    public boolean isTopIntro() {
+        return true;
+    }
 }

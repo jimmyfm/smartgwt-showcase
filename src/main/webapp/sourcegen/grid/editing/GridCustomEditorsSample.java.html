@@ -76,19 +76,8 @@ public class GridCustomEditorsSample implements EntryPoint {
 
         ListGridField populationField = new ListGridField("population", "Population", 100);
         populationField.setEditorProperties(new SpinnerItem());
-
         populationField.setType(ListGridFieldType.INTEGER);
-        populationField.setCellFormatter(new CellFormatter() {
-            public String format(Object value, ListGridRecord record, int rowNum, int colNum) {
-                if(value == null || value.equals("")) return null;
-                NumberFormat nf = NumberFormat.getFormat("0,000");
-                try {
-                    return nf.format(((Number) value).longValue());
-                } catch (Exception e) {
-                    return value.toString();
-                }
-            }
-        });
+
         ListGridField independenceField = new ListGridField("independence", "Independence", 225);
         DateItem dateItem = new DateItem();
         dateItem.setUseTextField(false);

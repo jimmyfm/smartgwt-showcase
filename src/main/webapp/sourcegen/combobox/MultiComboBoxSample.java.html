@@ -50,7 +50,7 @@ import com.smartgwt.client.widgets.form.fields.MultiComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.layout.VStack;
+import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.sample.showcase.client.data.ItemSupplyXmlDS;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -118,10 +118,13 @@ public class MultiComboBoxSample implements EntryPoint {
         suppliesForm.setTitleOrientation(TitleOrientation.TOP);
         suppliesForm.setItems(suppliesItem);
 
-        final VStack layout = new VStack(10);
+        final VLayout layout = new VLayout(10);
         layout.setWidth("100%");
         layout.setMembers(configureForm, suppliesForm);
-        layout.draw();
+
+        final Canvas canvas = new Canvas();
+        canvas.addChild(layout);
+        canvas.draw();
     }
 
 }

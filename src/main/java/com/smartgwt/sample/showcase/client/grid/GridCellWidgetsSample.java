@@ -85,7 +85,7 @@ public class GridCellWidgetsSample extends ShowcasePanel {
                     return recordCanvas;
                 } else if (fieldName.equals("buttonField")) {
                     IButton button = new IButton();
-                    button.setHeight(24);
+                    button.setHeight(26);
                     button.setWidth(70);                    
                     button.setIcon("flags/16/" + record.getAttribute("countryCode") + ".png");
                     button.setTitle("Info");

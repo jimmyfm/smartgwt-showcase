@@ -24,10 +24,10 @@ public class GridDateRangeFilterSample extends ShowcasePanel {
             "RelativeDate values that cause filtering relative to some other base-date.</p>" +
             "<p>The RelativeDateRangeItem allows selection of dates in three ways: you can select a preset DateRange, like \"Today\" or \"Tomorrow\", " +
             "or a \"ranged\" date-string, such as \"N days from now\" and enter a quantity to associate with it, or you can directly enter a date-string " +
-            "in a recognized format. You can also select a date from the DateChooser by click the icon to the right of the widget. <p>" +
-            "<p>The first example below demonstrates using a DateRangeItem in a separate DynamicForm to filter a ListGrid. Select start and end values for the range " +
+            "in a recognized format. You can also select a date from the DateChooser by clicking the icon to the right of the widget. <p>" +
+            "<p>The first example demonstrates using a DateRangeItem in a separate DynamicForm to filter a ListGrid. Select start and end values for the range " +
             "using one of the methods described above and click the \"Search\" button to see the data filtered according to the values in the \"Nationhood\" field.</p>" +
-            "<p>The second example below demonstrates filtering grid data using a MiniDateRangeItem to filter data when a ListGrid is showing it's FilterEditor. " +
+            "<p>The second example demonstrates filtering grid data using a MiniDateRangeItem to filter data when a ListGrid is showing it's FilterEditor. " +
             "In this example, click the Date icon in the header for the Nationhood field to open a popup DateRangeItemDialog. In the dialog, select start and end values " +
             "for the range, as described above, and click Ok to close the Window. Then click the Filter button in the top right of the grid to see the data filtered. " +
             "You can hover the mouse over the Nationhood field-header to see the full date-range string.</p>";

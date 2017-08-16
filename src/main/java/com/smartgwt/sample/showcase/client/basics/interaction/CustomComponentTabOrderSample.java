@@ -28,7 +28,7 @@ public class CustomComponentTabOrderSample extends ShowcasePanel {
     private static final String DESCRIPTION = "Arbitrary HTML or third party widgets can be included in the page's "
     		+ "tab order via APIs on the special TabIndexManager class. This sample demonstrates the inclusion of "
     		+ "some native HTML &lt;button&gt; elements. These native elements are present in the page's tab "
-    		+ "order at the expected position, and are updated automatically when the the structure of the page is "
+    		+ "order at the expected position, and are updated automatically when the structure of the page is "
     		+ "changed via the 'Switch Members' button.";
 
 

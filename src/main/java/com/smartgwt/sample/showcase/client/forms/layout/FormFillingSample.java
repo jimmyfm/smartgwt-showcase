@@ -15,7 +15,7 @@ import com.smartgwt.sample.showcase.client.ShowcasePanel;
 public class FormFillingSample extends ShowcasePanel {
     private static final String DESCRIPTION = "Click on the \"Short Message\" and \"Long Message\"" +
                                               " buttons to change the amount of space available" +
-                                              " to the form. SmartClient form layouts allow you" +
+                                              " to the form. Smart GWT form layouts allow you" +
                                               " to fill available space, even when available" +
                                               " space cannot be known in advance because it is" +
                                               " data-dependant.";

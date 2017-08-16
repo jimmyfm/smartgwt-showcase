@@ -40,7 +40,7 @@ import com.smartgwt.sample.showcase.client.ShowcasePanel;
 
 
 public class GridCellEditorCustomizerSample extends ShowcasePanel {
-    private static final String DESCRIPTION = "<p><b>Click</b> on any cell of the &quot;Value Field&quot; column to start editing. This example illustrates have cell editors can be customized for the <b>same</b> ListGridField, but " +
+    private static final String DESCRIPTION = "<p><b>Click</b> on any cell of the &quot;Value Field&quot; column to start editing. This example illustrates how cell editors can be customized for the <b>same</b> ListGridField, but " +
             "different records using ListGrid.setEditorCustomizer(..)</p>";
 
     public static class Factory implements PanelFactory {
