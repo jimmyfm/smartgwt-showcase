@@ -1,8 +1,5 @@
 {
 	"name": "SmartGWT LGPL Showcase",
 	"description": "Self-hosted SmartGWT Showcase",
-	"repository": "https://github.com/jimmyfm/smartgwt-showcase",
-	"env": {
-		"MAVEN_CUSTOM_GOALS": "clean isc:deploy package"
-	}
+	"repository": "https://github.com/jimmyfm/smartgwt-showcase"
 }
